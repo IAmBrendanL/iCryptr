@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os
 
 
 class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate {
@@ -16,12 +17,20 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         
         delegate = self
         
-        allowsDocumentCreation = true
+        allowsDocumentCreation = false
         allowsPickingMultipleItems = false
         
         // Update the style of the UIDocumentBrowserViewController
-        // browserUserInterfaceStyle = .dark
-        // view.tintColor = .white
+         browserUserInterfaceStyle = .dark
+         view.tintColor = .lightGray
+        
+        // MARK: Actions
+        let exportAction = UIDocumentBrowserAction(identifier: "com.brendan.icryptr.encrypt-file", localizedTitle: "Encrypt File",
+                                             availability: [.menu, .navigationBar], handler:{ (_) in
+                                                os_log("Encrypt File was selected")
+        })
+        exportAction.supportedContentTypes = ["public.item"]
+        customActions = [exportAction]
         
         // Specify the allowed content types of your application via the Info.plist.
         
