@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C69EE8BF203130150020AC45 /* EncryptionServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69EE8BE203130150020AC45 /* EncryptionServices.swift */; };
 		C6B937F72027AB65006F6A8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B937F62027AB65006F6A8A /* AppDelegate.swift */; };
 		C6B937F92027AB65006F6A8A /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B937F82027AB65006F6A8A /* DocumentBrowserViewController.swift */; };
 		C6B937FB2027AB65006F6A8A /* DocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B937FA2027AB65006F6A8A /* DocumentViewController.swift */; };
@@ -36,7 +37,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C6B937F32027AB65006F6A8A /* iCryptr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iCryptr.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C64BB2F6202D4D5700F704F8 /* iCryptr-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iCryptr-Bridging-Header.h"; sourceTree = "<group>"; };
+		C64BB2F9202D4F2E00F704F8 /* iCryptr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iCryptr.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C69EE8BB2030EE3E0020AC45 /* iCryptrTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iCryptrTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C69EE8BC2030EE3E0020AC45 /* iCryptrUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iCryptrUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C69EE8BE203130150020AC45 /* EncryptionServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptionServices.swift; sourceTree = "<group>"; };
 		C6B937F62027AB65006F6A8A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C6B937F82027AB65006F6A8A /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
 		C6B937FA2027AB65006F6A8A /* DocumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewController.swift; sourceTree = "<group>"; };
@@ -45,10 +50,8 @@
 		C6B938012027AB65006F6A8A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C6B938042027AB65006F6A8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C6B938062027AB65006F6A8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C6B9380B2027AB65006F6A8A /* iCryptrTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iCryptrTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6B9380F2027AB65006F6A8A /* iCryptrTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCryptrTests.swift; sourceTree = "<group>"; };
 		C6B938112027AB65006F6A8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C6B938162027AB65006F6A8A /* iCryptrUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iCryptrUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6B9381A2027AB65006F6A8A /* iCryptrUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCryptrUITests.swift; sourceTree = "<group>"; };
 		C6B9381C2027AB65006F6A8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,29 +81,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C69EE8BD20312FD80020AC45 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C64BB2F6202D4D5700F704F8 /* iCryptr-Bridging-Header.h */,
+				C69EE8BE203130150020AC45 /* EncryptionServices.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		C6B937EA2027AB65006F6A8A = {
 			isa = PBXGroup;
 			children = (
 				C6B937F52027AB65006F6A8A /* iCryptr */,
 				C6B9380E2027AB65006F6A8A /* iCryptrTests */,
 				C6B938192027AB65006F6A8A /* iCryptrUITests */,
-				C6B937F42027AB65006F6A8A /* Products */,
+				C64BB2F9202D4F2E00F704F8 /* iCryptr.app */,
+				C69EE8BB2030EE3E0020AC45 /* iCryptrTests.xctest */,
+				C69EE8BC2030EE3E0020AC45 /* iCryptrUITests.xctest */,
 			);
-			sourceTree = "<group>";
-		};
-		C6B937F42027AB65006F6A8A /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C6B937F32027AB65006F6A8A /* iCryptr.app */,
-				C6B9380B2027AB65006F6A8A /* iCryptrTests.xctest */,
-				C6B938162027AB65006F6A8A /* iCryptrUITests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		C6B937F52027AB65006F6A8A /* iCryptr */ = {
 			isa = PBXGroup;
 			children = (
+				C69EE8BD20312FD80020AC45 /* Services */,
 				C6B937F62027AB65006F6A8A /* AppDelegate.swift */,
 				C6B937F82027AB65006F6A8A /* DocumentBrowserViewController.swift */,
 				C6B937FA2027AB65006F6A8A /* DocumentViewController.swift */,
@@ -148,7 +153,7 @@
 			);
 			name = iCryptr;
 			productName = iCryptr;
-			productReference = C6B937F32027AB65006F6A8A /* iCryptr.app */;
+			productReference = C64BB2F9202D4F2E00F704F8 /* iCryptr.app */;
 			productType = "com.apple.product-type.application";
 		};
 		C6B9380A2027AB65006F6A8A /* iCryptrTests */ = {
@@ -166,7 +171,7 @@
 			);
 			name = iCryptrTests;
 			productName = iCryptrTests;
-			productReference = C6B9380B2027AB65006F6A8A /* iCryptrTests.xctest */;
+			productReference = C69EE8BB2030EE3E0020AC45 /* iCryptrTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		C6B938152027AB65006F6A8A /* iCryptrUITests */ = {
@@ -184,7 +189,7 @@
 			);
 			name = iCryptrUITests;
 			productName = iCryptrUITests;
-			productReference = C6B938162027AB65006F6A8A /* iCryptrUITests.xctest */;
+			productReference = C69EE8BC2030EE3E0020AC45 /* iCryptrUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -199,6 +204,7 @@
 				TargetAttributes = {
 					C6B937F22027AB65006F6A8A = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 					C6B9380A2027AB65006F6A8A = {
@@ -222,7 +228,7 @@
 				Base,
 			);
 			mainGroup = C6B937EA2027AB65006F6A8A;
-			productRefGroup = C6B937F42027AB65006F6A8A /* Products */;
+			productRefGroup = C6B937EA2027AB65006F6A8A;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -265,6 +271,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C69EE8BF203130150020AC45 /* EncryptionServices.swift in Sources */,
 				C6B937FD2027AB65006F6A8A /* Document.swift in Sources */,
 				C6B937FB2027AB65006F6A8A /* DocumentViewController.swift in Sources */,
 				C6B937F92027AB65006F6A8A /* DocumentBrowserViewController.swift in Sources */,
@@ -434,12 +441,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y6FW7TXMBT;
 				INFOPLIST_FILE = iCryptr/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.BrendanLindsey.iCryptr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "iCryptr/Services/iCryptr-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -449,12 +459,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y6FW7TXMBT;
 				INFOPLIST_FILE = iCryptr/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.BrendanLindsey.iCryptr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "iCryptr/Services/iCryptr-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
