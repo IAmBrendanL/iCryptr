@@ -16,14 +16,15 @@ import Foundation
     - rounds: A UInt32 signifying the number of rounds to run the key derivation algorithm. Use getKeyGenerationRounds
               to generate or get it from a file to decrypt.
  */
-func generateKeyFromPassword(_ passwd: String, _ salt: String, _ rounds: UInt32) -> Data? {
+func generateKeyFromPassword(_ passwd: String, _ salt: Data, _ rounds: UInt32) -> Data? {
     var key = Data(count:kCCKeySizeAES256)
+    guard let saltString = String(data: salt, encoding: .ascii) else {return nil}
     let success = key.withUnsafeMutableBytes { keyPtr in
         return CCKeyDerivationPBKDF(CCPBKDFAlgorithm(kCCPBKDF2), passwd,
-                                    strlen(passwd), salt, strlen(salt),
+                                    strlen(passwd), saltString, strlen(saltString),
                                     CCPseudoRandomAlgorithm(kCCPRFHmacAlgSHA256),
                                     rounds, keyPtr, kCCKeySizeAES256)
-    }
+}
     // if key derivation was successful
     if success == kCCSuccess {
         // return key
@@ -40,8 +41,9 @@ func generateKeyFromPassword(_ passwd: String, _ salt: String, _ rounds: UInt32)
     - passwd: The password from the user.
     - salt: A salt generated or from a file to decrypt.
  */
-func getKeyGenerationRounds(_ passwd: String, _ salt: String) -> UInt32 {
-    return CCCalibratePBKDF(CCPBKDFAlgorithm(kCCPBKDF2), strlen(passwd), strlen(salt),
+func getKeyGenerationRounds(_ passwd: String, _ salt: Data) -> UInt32 {
+    guard let saltString = String(data: salt, encoding: .ascii) else {return 9999}
+    return CCCalibratePBKDF(CCPBKDFAlgorithm(kCCPBKDF2), strlen(passwd), strlen(saltString),
                             CCPseudoRandomAlgorithm(kCCPRFHmacAlgSHA256), 8, 500)
 }
 
@@ -49,17 +51,13 @@ func getKeyGenerationRounds(_ passwd: String, _ salt: String) -> UInt32 {
 /**
  Generates an 8 byte cryptographically secure random salt.
  */
-func generateSaltForKeyGeneration() -> String? {
+func generateSaltForKeyGeneration() -> Data? {
     let uint8Pointer = UnsafeMutablePointer<UInt8>.allocate(capacity: 8)
     let result = SecRandomCopyBytes(kSecRandomDefault, 8, uint8Pointer)
     
     // if successful
     if result == errSecSuccess {
-        // build salt
-        var salt = ""
-        for i in 0...7 {
-            salt += String(uint8Pointer[i])
-        }
+        let salt = Data(bytes:uint8Pointer, count: 8)
         // free memory amd return
         uint8Pointer.deinitialize(count: 8)
         uint8Pointer.deallocate(capacity: 8)
@@ -96,7 +94,7 @@ func generateIVForFileEncryption() -> Data? {
  - Parameters:
     - key: A Data object holding an AES256 key
     - iv: A Data object holding an initialization vector
-    - plainData: A Data object holding the "PlainText" to encrypt
+    - plainData: A Data object holding the "PlßßainText" to encrypt
  - Returns:
     - A Data object with the encrypted data if successful
     - nil if uncessful
@@ -158,5 +156,56 @@ func decryptFile(_ key: Data, _ iv: Data, _ cipherData: Data) -> Data? {
     // return result
     return kCCSuccess == status ? plainData : nil
 }
+
+
+/**
+ Concatanates the binary data (salt, iv, and encrypted data) so that
+ the file written out contains all of the peices needed to decrypt it
+ - Parameters:
+    - salt: A Data object holding the salt string in bytes
+    - iv: A Data object holding the intialization vector bytes
+    - cipherFilenameAndType: A Data object holding the encrypted file name and type
+    - cipherData: A Data object holding the encrypted file data
+ - Returns:
+    - nil: If name len is too long or the binary data is not correctly created
+    - Data: the packed file if creation works
+ */
+func packEncryptedFile(_ salt: Data, _ iv: Data, _ cipherFilenameAndType: Data, _ cipherData: Data) -> Data? {
+    let lenData = Data(repeating: UInt8(cipherFilenameAndType.count), count: 1)
+    // if nameLen did not fit in one byte
+    if lenData.count != 1 { return nil }
+    var encryptedData = Data()
+    
+    encryptedData.append(salt)
+    encryptedData.append(iv)
+    encryptedData.append(lenData)
+    encryptedData.append(cipherFilenameAndType)
+    encryptedData.append(cipherData)
+    
+    // verify that the data length is correct before returning
+    if encryptedData.count != salt.count + iv.count + lenData.count + cipherFilenameAndType.count + cipherData.count {
+        return nil
+    }
+    return encryptedData
+}
+
+/**
+ Takes in a packed Encrypted File and unpacks it
+ */
+func unpackEncryptedFile( _ encryptedData: Data) -> (salt: Data, iv: Data, filenameAndType: Data, cipherData: Data)? {
+    // need to think about what I want out of this... do I want it to return multiple objects or just parts that are
+    // requested via another param and switch statement?
+    // helper constant
+    let ivEnd = 8 + kCCBlockSizeAES128
+    let salt = encryptedData.subdata(in: 0..<8)
+    let iv = encryptedData.subdata(in: 8..<ivEnd)
+    let filenameAndTypeLen = encryptedData.subdata(in: ivEnd..<ivEnd+1).withUnsafeBytes { dataPtr -> Int in
+        return dataPtr.pointee
+    }
+    let filenameAndType = encryptedData.subdata(in: ivEnd+1..<ivEnd+1+filenameAndTypeLen)
+    let cipherData = encryptedData.subdata(in: ivEnd+1+filenameAndTypeLen..<encryptedData.count)
+    return (salt, iv,filenameAndType, cipherData)
+}
+
 
 

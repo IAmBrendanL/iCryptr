@@ -11,14 +11,19 @@ import XCTest
 
 class iCryptrTests: XCTestCase {
     
-    
+
     func testGenerateKeyFromPassword() {
         // Test that keys generated are unique and not nil
-        let firstPairResult1 = generateKeyFromPassword("password23434b%3929057!@^&*(<.87=+¨ˆ∑´", "salt*$&*b19!@¥ø†√¨", 100000)
-        let secondPairResult1 = generateKeyFromPassword("newpass48nn39dkj%394n__=38593*", "wq34", 100000)
-        let firstPairResult2 = generateKeyFromPassword("password23434b%3929057!@^&*(<.87=+¨ˆ∑´", "salt*$&*b19!@¥ø†√¨", 100000)
-        let secondPairResult2 = generateKeyFromPassword("newpass48nn39dkj%394n__=38593*", "wq34", 100000)
+        let salt1 = generateSaltForKeyGeneration()
+        let salt2 = generateSaltForKeyGeneration()
+        XCTAssertNotNil(salt1, "Salt1 returned nil")
+        XCTAssertNotNil(salt2, "Salt2 return nil")
         
+        let firstPairResult1 = generateKeyFromPassword("password23434b%3929057!@^&*(<.87=+¨ˆ∑´", salt1!, 100000)
+        let secondPairResult1 = generateKeyFromPassword("newpass48nn39dkj%394n__=38593*", salt2!, 100000)
+        let firstPairResult2 = generateKeyFromPassword("password23434b%3929057!@^&*(<.87=+¨ˆ∑´", salt1!, 100000)
+        let secondPairResult2 = generateKeyFromPassword("newpass48nn39dkj%394n__=38593*", salt2!, 100000)
+
         //Assert
         XCTAssertNotNil(firstPairResult1)
         XCTAssertNotNil(secondPairResult1)
@@ -30,12 +35,12 @@ class iCryptrTests: XCTestCase {
                       "Keys generated with the same password, salt, and rounds are different.")
         XCTAssertTrue(firstPairResult1 != secondPairResult1,
                        "Keys generated with different values directly after eachother are the same.")
-    
+
     }
-    
+
     func testSalts() {
         // Test that salts are unique and not returning errors
-        var salts: Array<String?> = []
+        var salts: Array<Data?> = []
         for _ in 0...99 {
             salts.append(generateSaltForKeyGeneration())
         }
