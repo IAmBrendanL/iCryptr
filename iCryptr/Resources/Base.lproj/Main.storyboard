@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Document Browser View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="DocumentBrowserViewController" customModule="iCryptr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="0fo-ii-Aj5"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="26" y="654"/>
+        </scene>
+        <!--EncryptController-->
+        <scene sceneID="dkP-xk-x6W">
+            <objects>
+                <viewController storyboardIdentifier="EncryptViewController" title="EncryptController" id="M2k-L8-Olo" customClass="EncryptDocumentViewController" customModule="iCryptr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SIE-Uh-Zny">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="2l7-xg-u1v">
+                                <rect key="frame" x="46" y="191" width="228" height="186.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="center" alignment="firstBaseline" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Jzy-az-Q3G">
+                                        <rect key="frame" x="6.5" y="0.0" width="215" height="20.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="File Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TDw-Fo-hfZ">
+                                                <rect key="frame" x="0.0" y="0.0" width="76" height="20.5"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s46-Uc-0IM">
+                                                <rect key="frame" x="86" y="0.0" width="129" height="20.5"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4T1-2n-0pH">
+                                        <rect key="frame" x="0.0" y="44.5" width="228" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <state key="normal" title="Encrypt With Specific Password"/>
+                                        <connections>
+                                            <action selector="encryptFileWithSpecificPassword" destination="M2k-L8-Olo" eventType="touchUpInside" id="VsH-SP-7Sg"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dit-T3-qwJ">
+                                        <rect key="frame" x="3" y="98.5" width="222" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <state key="normal" title="Encrypt With Default Password"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WAb-IC-g0u">
+                                        <rect key="frame" x="92.5" y="152.5" width="43" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" title="Done"/>
+                                        <connections>
+                                            <action selector="dismissDocumentViewController" destination="M2k-L8-Olo" eventType="touchUpInside" id="Hqu-HM-7pb"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="BoZ-jc-2Y8" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="2l7-xg-u1v" secondAttribute="bottom" constant="13" id="8nM-Ey-mUy"/>
+                            <constraint firstItem="BoZ-jc-2Y8" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2l7-xg-u1v" secondAttribute="trailing" constant="26" id="NVA-qg-d89"/>
+                            <constraint firstItem="2l7-xg-u1v" firstAttribute="centerX" secondItem="SIE-Uh-Zny" secondAttribute="centerX" id="UUS-kO-C91"/>
+                            <constraint firstItem="2l7-xg-u1v" firstAttribute="top" relation="greaterThanOrEqual" secondItem="BoZ-jc-2Y8" secondAttribute="top" constant="13" id="amB-zX-VXf"/>
+                            <constraint firstItem="2l7-xg-u1v" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="BoZ-jc-2Y8" secondAttribute="leading" constant="26" id="b2N-8I-X9W"/>
+                            <constraint firstItem="2l7-xg-u1v" firstAttribute="centerY" secondItem="SIE-Uh-Zny" secondAttribute="centerY" id="yEe-m6-dL4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="BoZ-jc-2Y8"/>
+                    </view>
+                    <connections>
+                        <outlet property="documentNameLabel" destination="s46-Uc-0IM" id="ODW-W7-MBh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rl9-ES-qQn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1031" y="654"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="SJy-8H-I9U">
+            <objects>
+                <tableViewController id="kln-2b-s7M" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="gfd-ry-UC5">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <sections>
+                            <tableViewSection headerTitle="hi" footerTitle="zx" id="DoS-k1-kJ6">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="RBb-LG-cTf">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RBb-LG-cTf" id="8dE-QB-yGz">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="JqH-Uu-Fnq">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Fbj-lB-Xb3">
+                                        <rect key="frame" x="0.0" y="100" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Fbj-lB-Xb3" id="ChO-4v-hao">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="kln-2b-s7M" id="8cA-c4-eWR"/>
+                            <outlet property="delegate" destination="kln-2b-s7M" id="ftj-L9-Yre"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xdt-Uv-09L" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1030" y="1492"/>
+        </scene>
+        <!--DecryptController-->
+        <scene sceneID="FGu-an-XL0">
+            <objects>
+                <viewController storyboardIdentifier="DecryptViewController" title="DecryptController" id="0Ri-sj-58N" customClass="DecryptDocumentViewController" customModule="iCryptr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2aB-gw-MgQ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="fyz-dK-Hsj">
+                                <rect key="frame" x="45" y="191" width="230" height="186.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="firstBaseline" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jyw-ho-1Kc">
+                                        <rect key="frame" x="7.5" y="0.0" width="215" height="20.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="File Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOT-Cw-Ux3">
+                                                <rect key="frame" x="0.0" y="0.0" width="76" height="20.5"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z2f-ko-9fa">
+                                                <rect key="frame" x="86" y="0.0" width="129" height="20.5"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zgT-9W-FAz">
+                                        <rect key="frame" x="0.0" y="44.5" width="230" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <state key="normal" title="Decrypt With Specific Password"/>
+                                        <connections>
+                                            <action selector="decryptFileWithSpecificPassword" destination="0Ri-sj-58N" eventType="touchUpInside" id="2Dh-yo-gZD"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qiW-18-jRH">
+                                        <rect key="frame" x="3" y="98.5" width="224" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <state key="normal" title="Decrypt With Default Password"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0SX-La-xdN">
+                                        <rect key="frame" x="93.5" y="152.5" width="43" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" title="Done"/>
+                                        <connections>
+                                            <action selector="dismissDocumentViewController" destination="0Ri-sj-58N" eventType="touchUpInside" id="JvP-g4-f0N"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="J0f-Mr-2gc" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fyz-dK-Hsj" secondAttribute="trailing" constant="26" id="EfW-Lc-Hi9"/>
+                            <constraint firstItem="fyz-dK-Hsj" firstAttribute="centerX" secondItem="2aB-gw-MgQ" secondAttribute="centerX" id="XWH-Cj-cSl"/>
+                            <constraint firstItem="J0f-Mr-2gc" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fyz-dK-Hsj" secondAttribute="bottom" constant="13" id="dtC-rN-ZTb"/>
+                            <constraint firstItem="fyz-dK-Hsj" firstAttribute="top" relation="greaterThanOrEqual" secondItem="J0f-Mr-2gc" secondAttribute="top" constant="13" id="g58-gk-CPf"/>
+                            <constraint firstItem="fyz-dK-Hsj" firstAttribute="centerY" secondItem="2aB-gw-MgQ" secondAttribute="centerY" id="iH5-Ac-RHU"/>
+                            <constraint firstItem="fyz-dK-Hsj" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="J0f-Mr-2gc" secondAttribute="leading" constant="26" id="rIG-KR-xSa"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="J0f-Mr-2gc"/>
+                    </view>
+                    <connections>
+                        <outlet property="documentNameLabel" destination="z2f-ko-9fa" id="Xkn-gL-73r"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B9a-cX-sc1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2004" y="654"/>
+        </scene>
+    </scenes>
+</document>

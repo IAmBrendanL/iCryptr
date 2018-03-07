@@ -7,36 +7,20 @@
 //
 
 import UIKit
-import os
 
 
 class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         delegate = self
-        
         allowsDocumentCreation = false
         allowsPickingMultipleItems = false
         
         // Update the style of the UIDocumentBrowserViewController
-         browserUserInterfaceStyle = .dark
-         view.tintColor = .lightGray
-        
-        // MARK: Actions
-        let exportAction = UIDocumentBrowserAction(identifier: "com.brendan.icryptr.encrypt-file", localizedTitle: "Encrypt File",
-                                             availability: [.menu, .navigationBar], handler:{ (_) in
-                                                os_log("Encrypt File was selected")
-        })
-        exportAction.supportedContentTypes = ["public.item"]
-        customActions = [exportAction]
-        
-        // Specify the allowed content types of your application via the Info.plist.
-        
-        // Do any additional setup after loading the view, typically from a nib.
+         browserUserInterfaceStyle = .white
+         view.tintColor = UIColor.init(red: 14.0/255, green: 122.0/255, blue: 254.0/255, alpha: 1.0)
     }
-    
     
     // MARK: UIDocumentBrowserViewControllerDelegate
     
@@ -54,9 +38,6 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     
     func documentBrowser(_ controller: UIDocumentBrowserViewController, didPickDocumentURLs documentURLs: [URL]) {
         guard let sourceURL = documentURLs.first else { return }
-        
-        // Present the Document View Controller for the first document that was picked.
-        // If you support picking multiple items, make sure you handle them all.
         presentDocument(at: sourceURL)
     }
     
@@ -70,14 +51,18 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     }
     
     // MARK: Document Presentation
-    
     func presentDocument(at documentURL: URL) {
-        
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let documentViewController = storyBoard.instantiateViewController(withIdentifier: "DocumentViewController") as! DocumentViewController
-        documentViewController.document = Document(fileURL: documentURL)
-        
-        present(documentViewController, animated: true, completion: nil)
+        // switch on file extention
+        if documentURL.pathExtension == "iCryptr" {
+            let documentViewController = storyBoard.instantiateViewController(withIdentifier: "DecryptViewController") as! DecryptDocumentViewController
+            documentViewController.document = Document(fileURL: documentURL)
+            present(documentViewController, animated: true, completion: nil)
+        } else {
+            let documentViewController = storyBoard.instantiateViewController(withIdentifier: "EncryptViewController") as! EncryptDocumentViewController
+            documentViewController.document = Document(fileURL: documentURL)
+            present(documentViewController, animated: true, completion: nil)
+        }
     }
 }
 

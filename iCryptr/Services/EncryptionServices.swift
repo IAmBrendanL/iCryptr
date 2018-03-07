@@ -25,7 +25,7 @@ fileprivate func generateKeyFromPassword(_ passwd: String, _ salt: Data, _ round
                                     strlen(passwd), saltString, strlen(saltString),
                                     CCPseudoRandomAlgorithm(kCCPRFHmacAlgSHA256),
                                     rounds, keyPtr, kCCKeySizeAES256)
-}
+    }
     // if key derivation was successful
     if success == kCCSuccess {
         // return key
@@ -45,7 +45,7 @@ fileprivate func generateKeyFromPassword(_ passwd: String, _ salt: Data, _ round
 fileprivate func getKeyGenerationRounds(_ passwd: String, _ salt: Data) -> UInt32 {
     guard let saltString = String(data: salt, encoding: .ascii) else {return 9999}
     return CCCalibratePBKDF(CCPBKDFAlgorithm(kCCPBKDF2), strlen(passwd), strlen(saltString),
-                            CCPseudoRandomAlgorithm(kCCPRFHmacAlgSHA256), 8, 500)
+                            CCPseudoRandomAlgorithm(kCCPRFHmacAlgSHA256), kCCKeySizeAES256, 500)
 }
 
 
@@ -53,15 +53,15 @@ fileprivate func getKeyGenerationRounds(_ passwd: String, _ salt: Data) -> UInt3
  Generates an 8 byte cryptographically secure random salt.
  */
 fileprivate func generateSaltForKeyGeneration() -> Data? {
-    let uint8Pointer = UnsafeMutablePointer<UInt8>.allocate(capacity: 8)
-    let result = SecRandomCopyBytes(kSecRandomDefault, 8, uint8Pointer)
+    let uint8Pointer = UnsafeMutablePointer<UInt8>.allocate(capacity: 64)
+    let result = SecRandomCopyBytes(kSecRandomDefault, 64, uint8Pointer)
     
     // if successful
     if result == errSecSuccess {
-        let salt = Data(bytes:uint8Pointer, count: 8)
+        let salt = Data(bytes:uint8Pointer, count: 64)
         // free memory amd return
-        uint8Pointer.deinitialize(count: 8)
-        uint8Pointer.deallocate(capacity: 8)
+        uint8Pointer.deinitialize(count: 64)
+        uint8Pointer.deallocate(capacity: 64)
         return salt
     }
     // if error
@@ -81,8 +81,8 @@ fileprivate func generateIVForFileEncryption() -> Data? {
     if result == errSecSuccess {
         let iv = Data(bytes:uint8Pointer, count: kCCBlockSizeAES128)
         // free memory amd return
-        uint8Pointer.deinitialize(count: 8)
-        uint8Pointer.deallocate(capacity: 8)
+        uint8Pointer.deinitialize(count: kCCBlockSizeAES128)
+        uint8Pointer.deallocate(capacity: kCCBlockSizeAES128)
         return iv
     }
     // if error
@@ -199,9 +199,9 @@ fileprivate func unpackEncryptedFile( _ encryptedData: Data) -> (salt: Data, iv:
     // need to think about what I want out of this... do I want it to return multiple objects or just parts that are
     // requested via another param and switch statement?
     // helper constant
-    let ivEnd = 8 + kCCBlockSizeAES128
-    let salt = encryptedData.subdata(in: 0..<8)
-    let iv = encryptedData.subdata(in: 8..<ivEnd)
+    let ivEnd = 64 + kCCBlockSizeAES128
+    let salt = encryptedData.subdata(in: 0..<64)
+    let iv = encryptedData.subdata(in: 64..<ivEnd)
     let filenameAndTypeLen = encryptedData.subdata(in: ivEnd..<ivEnd+1).withUnsafeBytes { dataPtr -> Int in
         return dataPtr.pointee
     }
