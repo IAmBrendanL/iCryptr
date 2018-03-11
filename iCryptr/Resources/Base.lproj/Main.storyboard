@@ -36,6 +36,21 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="2l7-xg-u1v">
                                 <rect key="frame" x="46" y="191" width="228" height="186.5"/>
                                 <subviews>
+                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" restorationIdentifier="EncryptionStackView" translatesAutoresizingMaskIntoConstraints="NO" id="srY-Fi-cJP">
+                                        <rect key="frame" x="43" y="0.0" width="142.5" height="0.0"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Encrypting...  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rZ2-a5-iTN">
+                                                <rect key="frame" x="0.0" y="0.0" width="105.5" height="0.0"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="h0z-4h-eXa">
+                                                <rect key="frame" x="105.5" y="0.0" width="37" height="0.0"/>
+                                                <color key="color" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </activityIndicatorView>
+                                        </subviews>
+                                    </stackView>
                                     <stackView opaque="NO" contentMode="center" alignment="firstBaseline" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Jzy-az-Q3G">
                                         <rect key="frame" x="6.5" y="0.0" width="215" height="20.5"/>
                                         <subviews>
@@ -58,7 +73,7 @@
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <state key="normal" title="Encrypt With Specific Password"/>
                                         <connections>
-                                            <action selector="encryptFileWithSpecificPassword" destination="M2k-L8-Olo" eventType="touchUpInside" id="VsH-SP-7Sg"/>
+                                            <action selector="getPasswordAndFileName" destination="M2k-L8-Olo" eventType="touchUpInside" id="VsH-SP-7Sg"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dit-T3-qwJ">
@@ -82,7 +97,6 @@
                             <constraint firstItem="BoZ-jc-2Y8" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="2l7-xg-u1v" secondAttribute="bottom" constant="13" id="8nM-Ey-mUy"/>
                             <constraint firstItem="BoZ-jc-2Y8" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2l7-xg-u1v" secondAttribute="trailing" constant="26" id="NVA-qg-d89"/>
                             <constraint firstItem="2l7-xg-u1v" firstAttribute="centerX" secondItem="SIE-Uh-Zny" secondAttribute="centerX" id="UUS-kO-C91"/>
-                            <constraint firstItem="2l7-xg-u1v" firstAttribute="top" relation="greaterThanOrEqual" secondItem="BoZ-jc-2Y8" secondAttribute="top" constant="13" id="amB-zX-VXf"/>
                             <constraint firstItem="2l7-xg-u1v" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="BoZ-jc-2Y8" secondAttribute="leading" constant="26" id="b2N-8I-X9W"/>
                             <constraint firstItem="2l7-xg-u1v" firstAttribute="centerY" secondItem="SIE-Uh-Zny" secondAttribute="centerY" id="yEe-m6-dL4"/>
                         </constraints>
@@ -90,41 +104,36 @@
                     </view>
                     <connections>
                         <outlet property="documentNameLabel" destination="s46-Uc-0IM" id="ODW-W7-MBh"/>
+                        <outlet property="encryptStackView" destination="srY-Fi-cJP" id="xHg-gJ-Uzw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rl9-ES-qQn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1031" y="654"/>
+            <point key="canvasLocation" x="1029.375" y="653.87323943661977"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Settings View Controller-->
         <scene sceneID="SJy-8H-I9U">
             <objects>
-                <tableViewController id="kln-2b-s7M" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SettingsTableViewController" title="Settings View Controller" id="kln-2b-s7M" customClass="SettingsViewController" customModule="iCryptr" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="gfd-ry-UC5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <sections>
-                            <tableViewSection headerTitle="hi" footerTitle="zx" id="DoS-k1-kJ6">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="RBb-LG-cTf">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RBb-LG-cTf" id="8dE-QB-yGz">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                             <tableViewSection id="JqH-Uu-Fnq">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Fbj-lB-Xb3">
-                                        <rect key="frame" x="0.0" y="100" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Fbj-lB-Xb3" id="ChO-4v-hao">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sK2-wB-e5N">
+                                                    <rect key="frame" x="0.0" y="-1" width="320" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                </navigationBar>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -151,6 +160,21 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="fyz-dK-Hsj">
                                 <rect key="frame" x="45" y="191" width="230" height="186.5"/>
                                 <subviews>
+                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wwd-x2-uRa">
+                                        <rect key="frame" x="43" y="0.0" width="144.5" height="0.0"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Decrypting...  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ux-W4-JSI">
+                                                <rect key="frame" x="0.0" y="0.0" width="107.5" height="0.0"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="JYr-mm-ZJe">
+                                                <rect key="frame" x="107.5" y="0.0" width="37" height="0.0"/>
+                                                <color key="color" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </activityIndicatorView>
+                                        </subviews>
+                                    </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="firstBaseline" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jyw-ho-1Kc">
                                         <rect key="frame" x="7.5" y="0.0" width="215" height="20.5"/>
                                         <subviews>
@@ -171,7 +195,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zgT-9W-FAz">
                                         <rect key="frame" x="0.0" y="44.5" width="230" height="30"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                        <state key="normal" title="Decrypt With Specific Password"/>
+                                        <state key="normal" title="Decrypt With Specific Password">
+                                            <color key="titleShadowColor" red="0.57414853570000002" green="0.57416242360000003" blue="0.57415497299999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="decryptFileWithSpecificPassword" destination="0Ri-sj-58N" eventType="touchUpInside" id="2Dh-yo-gZD"/>
                                         </connections>
@@ -204,6 +230,7 @@
                         <viewLayoutGuide key="safeArea" id="J0f-Mr-2gc"/>
                     </view>
                     <connections>
+                        <outlet property="decryptStackView" destination="wwd-x2-uRa" id="KK6-4y-R2Q"/>
                         <outlet property="documentNameLabel" destination="z2f-ko-9fa" id="Xkn-gL-73r"/>
                     </connections>
                 </viewController>

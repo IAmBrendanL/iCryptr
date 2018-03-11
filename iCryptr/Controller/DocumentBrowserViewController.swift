@@ -18,12 +18,15 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         allowsPickingMultipleItems = false
         
         // Update the style of the UIDocumentBrowserViewController
-         browserUserInterfaceStyle = .white
-         view.tintColor = UIColor.init(red: 14.0/255, green: 122.0/255, blue: 254.0/255, alpha: 1.0)
+        browserUserInterfaceStyle = .white
+        view.tintColor = UIColor.init(red: 14.0/255, green: 122.0/255, blue: 254.0/255, alpha: 1.0)
+        
+        let settingsBarButton = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(self.presentSettings))
+        additionalTrailingNavigationBarButtonItems = [settingsBarButton]
     }
     
-    // MARK: UIDocumentBrowserViewControllerDelegate
     
+    // MARK: UIDocumentBrowserViewControllerDelegate
     func documentBrowser(_ controller: UIDocumentBrowserViewController, didRequestDocumentCreationWithHandler importHandler: @escaping (URL?, UIDocumentBrowserViewController.ImportMode) -> Void) {
         let newDocumentURL: URL? = nil
         
@@ -50,7 +53,8 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         // Make sure to handle the failed import appropriately, e.g., by presenting an error message to the user.
     }
     
-    // MARK: Document Presentation
+    
+    // MARK: View Presentation
     func presentDocument(at documentURL: URL) {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         // switch on file extention
@@ -63,6 +67,13 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
             documentViewController.document = Document(fileURL: documentURL)
             present(documentViewController, animated: true, completion: nil)
         }
+    }
+    
+    @objc func presentSettings() {
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let settingsViewController = storyBoard.instantiateViewController(withIdentifier: "SettingsTableViewController") as! SettingsViewController
+        present(settingsViewController, animated: true, completion: nil)
+        
     }
 }
 

@@ -10,17 +10,14 @@ import UIKit
 
 class DecryptDocumentViewController: UIViewController {
     
-    //MARK: UIActions for decryption
+    // MARK: UIActions for decryption
     @IBAction func decryptFileWithSpecificPassword() {
-        // Get file URL to encrypt
-        let fileURL = self.document?.fileURL
-        // Get password and document name to write out to via UIAlertController
+        // Set up alert controller to get password and
         let alert = UIAlertController(title: "Enter Password & New File Name", message: "", preferredStyle: .alert)
+        // decrypt file on save
         let alertSaveAction = UIAlertAction(title: "Submit", style: .default) { action in
             guard let passwordField = alert.textFields?[0], let password = passwordField.text else { return }
-            // decrypt file
-            // Status passing to user not yet handled!
-            decryptFile(fileURL!, password)
+            self.decryptFileWithProgress(password)
         }
         let alertCancelAction = UIAlertAction(title: "Cancel", style: .default)
         
@@ -39,11 +36,27 @@ class DecryptDocumentViewController: UIViewController {
         // present alert
         present(alert, animated: true)
     }
+   
+    @IBAction func dismissDocumentViewController() {
+        dismiss(animated: true) {
+            self.document?.close(completionHandler: nil)
+        }
+    }
+
     
-    
-    @IBOutlet weak var documentNameLabel: UILabel!
-    
-    var document: UIDocument?
+
+    // MARK: Class Methods
+    func decryptFileWithProgress(_ passwd: String)  {
+        // Encrypt the file and display UIActivityIndicatorView
+        guard let fileURL = self.document?.fileURL else { return }
+        self.decryptStackView.isHidden = false
+        DispatchQueue.global(qos: .background).async {
+            decryptFile(fileURL, passwd)
+            DispatchQueue.main.async {
+                self.decryptStackView.isHidden = true
+            }
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -59,9 +72,12 @@ class DecryptDocumentViewController: UIViewController {
         })
     }
     
-    @IBAction func dismissDocumentViewController() {
-        dismiss(animated: true) {
-            self.document?.close(completionHandler: nil)
-        }
-    }
+    
+    // MARK IBOutlets
+    @IBOutlet weak var documentNameLabel: UILabel!
+    @IBOutlet weak var decryptStackView: UIStackView!
+    
+    
+    //Mark Class Variables
+    var document: UIDocument?
 }

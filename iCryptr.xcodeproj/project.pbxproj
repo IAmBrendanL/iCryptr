@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C61486FB204D230C005B8E35 /* DecryptDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61486FA204D230C005B8E35 /* DecryptDocumentViewController.swift */; };
+		C689ABBD20551A5C00C4AC66 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C689ABBC20551A5C00C4AC66 /* SettingsViewController.swift */; };
 		C69EE8BF203130150020AC45 /* EncryptionServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69EE8BE203130150020AC45 /* EncryptionServices.swift */; };
 		C6B937F72027AB65006F6A8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B937F62027AB65006F6A8A /* AppDelegate.swift */; };
 		C6B937F92027AB65006F6A8A /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B937F82027AB65006F6A8A /* DocumentBrowserViewController.swift */; };
@@ -41,6 +42,7 @@
 		C61486FA204D230C005B8E35 /* DecryptDocumentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecryptDocumentViewController.swift; sourceTree = "<group>"; };
 		C64BB2F6202D4D5700F704F8 /* iCryptr-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iCryptr-Bridging-Header.h"; sourceTree = "<group>"; };
 		C64BB2F9202D4F2E00F704F8 /* iCryptr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iCryptr.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C689ABBC20551A5C00C4AC66 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C69EE8BB2030EE3E0020AC45 /* iCryptrTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iCryptrTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C69EE8BC2030EE3E0020AC45 /* iCryptrUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iCryptrUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C69EE8BE203130150020AC45 /* EncryptionServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptionServices.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				C6B937F82027AB65006F6A8A /* DocumentBrowserViewController.swift */,
 				C61486FA204D230C005B8E35 /* DecryptDocumentViewController.swift */,
 				C6B937FC2027AB65006F6A8A /* Document.swift */,
+				C689ABBC20551A5C00C4AC66 /* SettingsViewController.swift */,
 				C6B937FA2027AB65006F6A8A /* EncryptDocumentViewController.swift */,
 			);
 			path = Controller;
@@ -292,6 +295,7 @@
 			files = (
 				C69EE8BF203130150020AC45 /* EncryptionServices.swift in Sources */,
 				C6B937FD2027AB65006F6A8A /* Document.swift in Sources */,
+				C689ABBD20551A5C00C4AC66 /* SettingsViewController.swift in Sources */,
 				C6B937FB2027AB65006F6A8A /* EncryptDocumentViewController.swift in Sources */,
 				C61486FB204D230C005B8E35 /* DecryptDocumentViewController.swift in Sources */,
 				C6B937F92027AB65006F6A8A /* DocumentBrowserViewController.swift in Sources */,
