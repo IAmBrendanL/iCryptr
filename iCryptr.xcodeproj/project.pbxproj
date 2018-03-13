@@ -19,6 +19,7 @@
 		C6B938052027AB65006F6A8A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6B938032027AB65006F6A8A /* LaunchScreen.storyboard */; };
 		C6B938102027AB65006F6A8A /* iCryptrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B9380F2027AB65006F6A8A /* iCryptrTests.swift */; };
 		C6B9381B2027AB65006F6A8A /* iCryptrUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B9381A2027AB65006F6A8A /* iCryptrUITests.swift */; };
+		C6F94D81205625970012E44D /* KeychainServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F94D80205625970012E44D /* KeychainServices.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		C6B938112027AB65006F6A8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6B9381A2027AB65006F6A8A /* iCryptrUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCryptrUITests.swift; sourceTree = "<group>"; };
 		C6B9381C2027AB65006F6A8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C6F94D80205625970012E44D /* KeychainServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServices.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 			children = (
 				C64BB2F6202D4D5700F704F8 /* iCryptr-Bridging-Header.h */,
 				C69EE8BE203130150020AC45 /* EncryptionServices.swift */,
+				C6F94D80205625970012E44D /* KeychainServices.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C69EE8BF203130150020AC45 /* EncryptionServices.swift in Sources */,
+				C6F94D81205625970012E44D /* KeychainServices.swift in Sources */,
 				C6B937FD2027AB65006F6A8A /* Document.swift in Sources */,
 				C689ABBD20551A5C00C4AC66 /* SettingsViewController.swift in Sources */,
 				C6B937FB2027AB65006F6A8A /* EncryptDocumentViewController.swift in Sources */,

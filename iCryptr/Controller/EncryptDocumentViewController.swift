@@ -35,9 +35,8 @@ class EncryptDocumentViewController: UIViewController {
             nameField.placeholder = "The name for the encrypted file"
             nameField.clearButtonMode = .whileEditing
         }
-
-        alert.addAction(alertSaveAction)
         alert.addAction(alertCancelAction)
+        alert.addAction(alertSaveAction)
         alert.preferredAction = alertSaveAction
         
         // present alert

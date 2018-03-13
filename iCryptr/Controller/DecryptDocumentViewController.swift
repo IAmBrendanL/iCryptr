@@ -12,8 +12,8 @@ class DecryptDocumentViewController: UIViewController {
     
     // MARK: UIActions for decryption
     @IBAction func decryptFileWithSpecificPassword() {
-        // Set up alert controller to get password and
-        let alert = UIAlertController(title: "Enter Password & New File Name", message: "", preferredStyle: .alert)
+        // Set up alert controller to get password
+        let alert = UIAlertController(title: "Enter Password", message: "", preferredStyle: .alert)
         // decrypt file on save
         let alertSaveAction = UIAlertAction(title: "Submit", style: .default) { action in
             guard let passwordField = alert.textFields?[0], let password = passwordField.text else { return }
@@ -29,8 +29,8 @@ class DecryptDocumentViewController: UIViewController {
             passwordField.autocapitalizationType = .none
             passwordField.autocorrectionType = .no
         }
-        alert.addAction(alertSaveAction)
         alert.addAction(alertCancelAction)
+        alert.addAction(alertSaveAction)
         alert.preferredAction = alertSaveAction
         
         // present alert

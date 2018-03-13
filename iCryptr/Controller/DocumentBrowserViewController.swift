@@ -71,7 +71,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     
     @objc func presentSettings() {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let settingsViewController = storyBoard.instantiateViewController(withIdentifier: "SettingsTableViewController") as! SettingsViewController
+        let settingsViewController = storyBoard.instantiateViewController(withIdentifier: "SettingsNavigationController") as! UINavigationController
         present(settingsViewController, animated: true, completion: nil)
         
     }
