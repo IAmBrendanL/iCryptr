@@ -98,7 +98,7 @@ class SettingsViewController: UITableViewController {
         self.present(alert, animated: true)
     }
     
-    // Private Methods
+    // MARK: Private Methods
     private func getPin(_ completion: @escaping () -> Void) {
         // Set up alert controller to get password
         let alert = UIAlertController(title: "Enter Pin", message: nil, preferredStyle: .alert)

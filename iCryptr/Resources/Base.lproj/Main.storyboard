@@ -81,6 +81,9 @@
                                         <rect key="frame" x="3" y="98.333333333333314" width="222" height="30"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <state key="normal" title="Encrypt With Default Password"/>
+                                        <connections>
+                                            <action selector="useDefaultPassword" destination="M2k-L8-Olo" eventType="touchUpInside" id="8bU-Yo-Lle"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WAb-IC-g0u">
                                         <rect key="frame" x="92.666666666666657" y="152.33333333333331" width="43" height="34"/>
@@ -341,6 +344,9 @@
                                         <rect key="frame" x="3" y="98.333333333333314" width="224" height="30"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <state key="normal" title="Decrypt With Default Password"/>
+                                        <connections>
+                                            <action selector="useDefaultPassword" destination="0Ri-sj-58N" eventType="touchUpInside" id="7yb-3Q-p8B"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0SX-La-xdN">
                                         <rect key="frame" x="93.666666666666657" y="152.33333333333331" width="43" height="34"/>

@@ -43,6 +43,14 @@ class DecryptDocumentViewController: UIViewController {
         }
     }
 
+    @IBAction func useDefaultPassword() {
+        getPin {
+            verifyIdentity(ReasonForAuthenticating: "Authorize use of default password") {
+                guard let passwd = getPasswordFromKeychain(forAccount: ".password") else { return }
+                self.decryptFileWithProgress(passwd)
+            }
+        }
+    }
     
 
     // MARK: Class Methods
@@ -51,7 +59,7 @@ class DecryptDocumentViewController: UIViewController {
         guard let fileURL = self.document?.fileURL else { return }
         self.decryptStackView.isHidden = false
         DispatchQueue.global(qos: .background).async {
-            decryptFile(fileURL, passwd)
+            let _ = decryptFile(fileURL, passwd)
             DispatchQueue.main.async {
                 self.decryptStackView.isHidden = true
             }
@@ -70,6 +78,37 @@ class DecryptDocumentViewController: UIViewController {
                 // Make sure to handle the failed import appropriately, e.g., by presenting an error message to the user.
             }
         })
+    }
+    
+    
+    // MARK: Private Methods
+    private func getPin(_ completion: @escaping () -> Void) {
+        // Set up alert controller to get password
+        let alert = UIAlertController(title: "Enter Pin", message: nil, preferredStyle: .alert)
+        // set default password on save
+        let alertSaveAction = UIAlertAction(title: "Submit", style: .default) { action in
+            guard let pinField = alert.textFields?[0], let pin = pinField.text else { return }
+            if checkPin(pin) {
+                completion()
+            }
+        }
+        let alertCancelAction = UIAlertAction(title: "Cancel", style: .default)
+        
+        // build alert from parts
+        alert.addTextField { pinField in
+            pinField.placeholder = "Password"
+            pinField.clearButtonMode = .whileEditing
+            pinField.isSecureTextEntry = true
+            pinField.autocapitalizationType = .none
+            pinField.autocorrectionType = .no
+            pinField.keyboardType = .numberPad
+        }
+        alert.addAction(alertCancelAction)
+        alert.addAction(alertSaveAction)
+        alert.preferredAction = alertSaveAction
+        
+        // present alert
+        self.present(alert, animated: true)
     }
     
     
