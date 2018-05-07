@@ -18,5 +18,6 @@ class Document: UIDocument {
     override func load(fromContents contents: Any, ofType typeName: String?) throws {
         // Load your document from contents
     }
+
 }
 

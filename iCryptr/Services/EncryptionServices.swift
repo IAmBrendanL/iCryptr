@@ -61,7 +61,7 @@ fileprivate func generateSaltForKeyGeneration() -> Data? {
         let salt = Data(bytes:uint8Pointer, count: 64)
         // free memory amd return
         uint8Pointer.deinitialize(count: 64)
-        uint8Pointer.deallocate(capacity: 64)
+        uint8Pointer.deallocate()
         return salt
     }
     // if error
@@ -82,7 +82,7 @@ fileprivate func generateIVForFileEncryption() -> Data? {
         let iv = Data(bytes:uint8Pointer, count: kCCBlockSizeAES128)
         // free memory amd return
         uint8Pointer.deinitialize(count: kCCBlockSizeAES128)
-        uint8Pointer.deallocate(capacity: kCCBlockSizeAES128)
+        uint8Pointer.deallocate()
         return iv
     }
     // if error
@@ -103,8 +103,10 @@ fileprivate func generateIVForFileEncryption() -> Data? {
 fileprivate func encryptDataWith(_ key: Data, _ iv: Data, _ plainData: Data) -> Data? {
     // holds number needed
     var numEncrypted = 0
-    // set cipherData size
+    // set cipherData size and store counts for modification
     var cipherData = Data(repeating: 0, count: plainData.count + iv.count)
+    let cipherDataCount = cipherData.count
+    let plainDataCount = plainData.count
     // start encrypton and return status
     let status = key.withUnsafeBytes { keyPtr in
         iv.withUnsafeBytes { ivPtr in
@@ -112,7 +114,7 @@ fileprivate func encryptDataWith(_ key: Data, _ iv: Data, _ plainData: Data) -> 
                 cipherData.withUnsafeMutableBytes { cipherDataPtr in
                     return  CCCrypt(CCOperation(kCCEncrypt), CCAlgorithm(kCCAlgorithmAES128),
                                     CCOptions(kCCOptionPKCS7Padding), keyPtr, kCCKeySizeAES256, ivPtr,
-                                    plainDataPtr, plainData.count, cipherDataPtr, cipherData.count,
+                                    plainDataPtr, plainDataCount, cipherDataPtr, cipherDataCount,
                                     &numEncrypted)
                 }
             }
@@ -137,8 +139,9 @@ Swift wrapper around CCcrypt for decryption of data
 fileprivate func decryptDataWith(_ key: Data, _ iv: Data, _ cipherData: Data) -> Data? {
     // holds number needed
     var numDecrypted = 0
-    // set cipherData size
+    // set cipherData size and store count for modification
     var plainData = Data(count: cipherData.count + kCCBlockSizeAES128)
+    let plainDataCount = plainData.count
     // start encrypton and return status
     let status = key.withUnsafeBytes { keyPtr in
         iv.withUnsafeBytes { ivPtr in
@@ -146,7 +149,7 @@ fileprivate func decryptDataWith(_ key: Data, _ iv: Data, _ cipherData: Data) ->
                 plainData.withUnsafeMutableBytes { plainDataPtr in
                     return  CCCrypt(CCOperation(kCCDecrypt), CCAlgorithm(kCCAlgorithmAES128),
                                     CCOptions(kCCOptionPKCS7Padding), keyPtr, kCCKeySizeAES256, ivPtr,
-                                    cipherDataPtr, cipherData.count, plainDataPtr, plainData.count,
+                                    cipherDataPtr, cipherData.count, plainDataPtr, plainDataCount,
                                     &numDecrypted)
                 }
             }
