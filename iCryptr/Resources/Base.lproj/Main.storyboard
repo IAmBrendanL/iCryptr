@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -108,12 +108,13 @@
                     </view>
                     <connections>
                         <outlet property="documentNameLabel" destination="s46-Uc-0IM" id="ODW-W7-MBh"/>
+                        <outlet property="doneButton" destination="WAb-IC-g0u" id="Ywx-O3-aIl"/>
                         <outlet property="encryptStackView" destination="srY-Fi-cJP" id="xHg-gJ-Uzw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rl9-ES-qQn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1029.375" y="653.87323943661977"/>
+            <point key="canvasLocation" x="703" y="654"/>
         </scene>
         <!--Settings-->
         <scene sceneID="eMf-2b-uaE">
@@ -285,7 +286,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U0F-J8-1Bh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2560.8695652173915" y="1475.5434782608697"/>
+            <point key="canvasLocation" x="848" y="1317"/>
         </scene>
         <!--DecryptController-->
         <scene sceneID="FGu-an-XL0">
@@ -373,11 +374,12 @@
                     <connections>
                         <outlet property="decryptStackView" destination="wwd-x2-uRa" id="KK6-4y-R2Q"/>
                         <outlet property="documentNameLabel" destination="z2f-ko-9fa" id="Xkn-gL-73r"/>
+                        <outlet property="doneButton" destination="0SX-La-xdN" id="tqd-ok-grr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B9a-cX-sc1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2004" y="654"/>
+            <point key="canvasLocation" x="1384" y="654"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="26L-NW-W9X">
@@ -398,7 +400,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XMK-2d-VLf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1543" y="1476"/>
+            <point key="canvasLocation" x="-3" y="1317"/>
         </scene>
     </scenes>
 </document>

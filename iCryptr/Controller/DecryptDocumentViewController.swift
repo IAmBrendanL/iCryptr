@@ -58,10 +58,13 @@ class DecryptDocumentViewController: UIViewController {
         // Encrypt the file and display UIActivityIndicatorView
         guard let fileURL = self.document?.fileURL else { return }
         self.decryptStackView.isHidden = false
+        self.doneButton.isHidden = true
         DispatchQueue.global(qos: .background).async {
-            let _ = decryptFile(fileURL, passwd)
+            let result = decryptFile(fileURL, passwd)
             DispatchQueue.main.async {
                 self.decryptStackView.isHidden = true
+                self.doneButton.isHidden = false
+                messageAlert(messageTitle: result ? "Success": "Error", messageContent: "", parent: self)
             }
         }
     }
@@ -115,6 +118,7 @@ class DecryptDocumentViewController: UIViewController {
     // MARK IBOutlets
     @IBOutlet weak var documentNameLabel: UILabel!
     @IBOutlet weak var decryptStackView: UIStackView!
+    @IBOutlet weak var doneButton: UIButton!
     
     
     //Mark Class Variables
