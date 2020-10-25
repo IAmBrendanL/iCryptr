@@ -218,34 +218,6 @@ fileprivate func unpackEncryptedFile( _ encryptedData: Data) -> (salt: Data, iv:
 }
 
 
-/**
- Try to write out a file to a unique file (avoid name collisons)
- Public as it may be useful elsewhere
- - Parameters:
-     - dirURL: The url to the directory to write the file
-     - fileName: The file name for the file to be written to
-     - fileData: The file data
- */
-func nondestructiveWrite(_ dirURL: URL, _ fileName: String, _ fileExtention: String, _ fileData: Data) -> Bool {
-    let fManager = FileManager.default
-    var fileURL =  dirURL.appendingPathComponent(fileName+"."+fileExtention)
-    for i in 1...10000 {
-        // check if file exists and either try to write the file or update the filename)
-        if !fManager.fileExists(atPath: fileURL.path) {
-            do {
-                try fileData.write(to: fileURL)
-                return true
-            } catch {
-                return false
-            }
-        } else {
-             fileURL = dirURL.appendingPathComponent("\(fileName)-\(String(i)).\(fileExtention)")
-        }
-    }
-    // if here then in 10000 iterations no filename was found to be available
-    return false
-}
-
 
 /**
  Encrypts a file and writes out the encrypted data
@@ -254,28 +226,25 @@ func nondestructiveWrite(_ dirURL: URL, _ fileName: String, _ fileExtention: Str
      - passwd: The password to encrypt with
      - encryptedFileName: The file name to write the encrypted file to
  */
-func encryptFile(_ fileURL: URL, _ passwd: String, _ encryptedFileName: String) -> Bool {
-    
-    var result = false
+func encryptFile(_ fileURL: URL, _ passwd: String, _ encryptedFileName: String) -> (fileName: String, fileData: Data)? {
     do {
         // get parts for encryption
-        guard let fileNameData = fileURL.lastPathComponent.data(using: .utf8) else { return false }
+        guard let fileNameData = fileURL.lastPathComponent.data(using: .utf8) else { return nil }
         let fileData = try Data(contentsOf: fileURL)
-        guard let salt = generateSaltForKeyGeneration() else { return false }
-        guard let key = generateKeyFromPassword(passwd, salt, 750000) else { return false }
-        guard let iv = generateIVForFileEncryption() else { return false }
+        guard let salt = generateSaltForKeyGeneration() else { return nil }
+        guard let key = generateKeyFromPassword(passwd, salt, 750000) else { return nil }
+        guard let iv = generateIVForFileEncryption() else { return nil }
         // do encryption
-        guard let encryptedFileNameData = encryptDataWith(key, iv, fileNameData) else { return false }
-        guard let encryptedFile = encryptDataWith(key, iv, fileData) else { return false }
+        guard let encryptedFileNameData = encryptDataWith(key, iv, fileNameData) else { return nil }
+        guard let encryptedFile = encryptDataWith(key, iv, fileData) else { return nil }
         // pack bytes and write file out
-        guard let packedEncryptedFile = packEncryptedFile(salt, iv, encryptedFileNameData, encryptedFile) else { return false }
-        result = nondestructiveWrite(fileURL.deletingLastPathComponent(), encryptedFileName, "iCryptr", packedEncryptedFile)
+        guard let packedEncryptedFile = packEncryptedFile(salt, iv, encryptedFileNameData, encryptedFile) else { return nil }
+        
+        return (encryptedFileName+".iCryptr", packedEncryptedFile)
         
     } catch {
-        return false
+        return nil
     }
-    // return
-    return result
 }
 
 

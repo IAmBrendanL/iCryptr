@@ -88,9 +88,52 @@ class EncryptDocumentViewController: UIViewController {
         self.encryptStackView.isHidden = false
         DispatchQueue.global(qos: .background).async {
             let result = encryptFile(fileURL, passwd, newName)
+
+            let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+            let temporaryDir = ProcessInfo().globallyUniqueString
+
+            let tempFileDirURL = temporaryDirectoryURL.appendingPathComponent(temporaryDir)
+            let tempFileURL = tempFileDirURL.appendingPathComponent(result!.fileName)
+            
+            do {
+              try FileManager.default.createDirectory(at: tempFileDirURL, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print("temp dir cr failed")
+                return
+            }
+            
+            print(tempFileURL)
+            
+            do {
+                try result!.fileData.write(to: tempFileURL, options: .atomic)
+                print("Written temp file")
+            } catch {
+                print("error")
+                return
+            }
+            
+            
             DispatchQueue.main.async {
                 self.encryptStackView.isHidden = true
-                self.dismissDocumentViewController()
+                let activityViewController = UIActivityViewController(activityItems: [tempFileURL], applicationActivities: nil)
+                 
+                
+                activityViewController.completionWithItemsHandler = { activity, success, items, error in
+                    if(success){
+                        
+                        do {
+                            try FileManager.default.removeItem(at: tempFileURL)
+                            print("removed files")
+                        } catch {
+                            print("failed to remove temporary url with error: \(error)")
+                        }
+                        
+                        self.dismissDocumentViewController()
+                        
+                    }
+                }
+                
+                self.present(activityViewController, animated: true)
             }
         }
     }
@@ -112,6 +155,8 @@ class EncryptDocumentViewController: UIViewController {
         
         self.documentNameLabel.text = self.document?.fileURL.lastPathComponent
     }
+    
+    
     
     
     // MARK: Private Methods
