@@ -8,6 +8,8 @@
 
 import Foundation
 
+let saltSize = 64
+
 
 /**
  Derieves an AES256 key from given password, salt, and rounds using Apple's open source CommonCrypto library
@@ -53,14 +55,14 @@ fileprivate func getKeyGenerationRounds(_ passwd: String, _ salt: Data) -> UInt3
  Generates an 8 byte cryptographically secure random salt.
  */
 fileprivate func generateSaltForKeyGeneration() -> Data? {
-    let uint8Pointer = UnsafeMutablePointer<UInt8>.allocate(capacity: 64)
-    let result = SecRandomCopyBytes(kSecRandomDefault, 64, uint8Pointer)
+    let uint8Pointer = UnsafeMutablePointer<UInt8>.allocate(capacity: saltSize)
+    let result = SecRandomCopyBytes(kSecRandomDefault, saltSize, uint8Pointer)
     
     // if successful
     if result == errSecSuccess {
-        let salt = Data(bytes:uint8Pointer, count: 64)
+        let salt = Data(bytes:uint8Pointer, count: saltSize)
         // free memory amd return
-        uint8Pointer.deinitialize(count: 64)
+        uint8Pointer.deinitialize(count: saltSize)
         uint8Pointer.deallocate()
         return salt
     }
@@ -202,9 +204,11 @@ fileprivate func unpackEncryptedFile( _ encryptedData: Data) -> (salt: Data, iv:
     // need to think about what I want out of this... do I want it to return multiple objects or just parts that are
     // requested via another param and switch statement?
     // helper constant
-    let ivEnd = 64 + kCCBlockSizeAES128
-    let salt = encryptedData.subdata(in: 0..<64)
-    let iv = encryptedData.subdata(in: 64..<ivEnd)
+    
+    let salt = encryptedData.subdata(in: 0..<saltSize)
+    let ivEnd = saltSize + kCCBlockSizeAES128
+    let iv = encryptedData.subdata(in: saltSize..<ivEnd)
+    
     let filenameAndTypeLen = encryptedData.subdata(in: ivEnd..<ivEnd+1).withUnsafeBytes { dataPtr -> Int in
         return dataPtr.pointee
     }
@@ -281,24 +285,23 @@ func encryptFile(_ fileURL: URL, _ passwd: String, _ encryptedFileName: String) 
      - fileURL: A URL with the file location
      - passwd: The password to decrypt with
  */
-func decryptFile(_ fileURL: URL, _ passwd: String) -> Bool {
-    var result = false
+func decryptFile(_ fileURL: URL, _ passwd: String) -> (Data, String)? {
     do {
         // get parts for decryption
         let fileData = try Data(contentsOf: fileURL)
-        guard let unpackedFile = unpackEncryptedFile(fileData) else { return false }
-        guard let key = generateKeyFromPassword(passwd, unpackedFile.salt, 750000) else { return false }
+        guard let unpackedFile = unpackEncryptedFile(fileData) else { return nil }
+        guard let key = generateKeyFromPassword(passwd, unpackedFile.salt, 750000) else { return nil }
         // do decryption
-        guard let decryptedFileNameData = decryptDataWith(key, unpackedFile.iv, unpackedFile.filenameAndType) else { return false }
-        guard let decryptedFileName = String(data: decryptedFileNameData, encoding: .utf8) else { return false }
-        guard let decryptedData = decryptDataWith(key, unpackedFile.iv, unpackedFile.cipherData) else { return false }
+        guard let decryptedFileNameData = decryptDataWith(key, unpackedFile.iv, unpackedFile.filenameAndType) else { return nil }
+        guard let decryptedFileName = String(data: decryptedFileNameData, encoding: .utf8) else { return nil }
+        guard let decryptedData = decryptDataWith(key, unpackedFile.iv, unpackedFile.cipherData) else { return nil }
         // write file
-        result = nondestructiveWrite(fileURL.deletingLastPathComponent(),
+        /* result = nondestructiveWrite(fileURL.deletingLastPathComponent(),
                                      (decryptedFileName as NSString).deletingPathExtension,
                                      (decryptedFileName as NSString).pathExtension, decryptedData)
-        
+        */
+        return (decryptedData, decryptedFileName)
     } catch {
-        return false
+        return nil
     }
-    // return
-    return result}
+}

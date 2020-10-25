@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import MobileCoreServices
+import ImageScrollView
 
 class EncryptDocumentViewController: UIViewController {
     
@@ -50,32 +52,30 @@ class EncryptDocumentViewController: UIViewController {
     }
     
     @IBAction func useDefaultPassword() {
-        getPin {
-            verifyIdentity(ReasonForAuthenticating: "Authorize use of default password") {
-                // Set up alert controler to get password and new filename
-                let alert = UIAlertController(title: "Enter New File Name", message: nil, preferredStyle: .alert)
-                // encrypt file on save
-                let alertSaveAction = UIAlertAction(title: "Submit", style: .default) { action in
-                    guard let password = getPasswordFromKeychain(forAccount: ".password") else { return }
-                    guard let nameField = alert.textFields?[0], let newName = nameField.text else { return }
-                    print(newName)
-                    self.encryptFileWithProgress(password, newName)
-                }
-                // set up cancel action
-                let alertCancelAction = UIAlertAction(title: "Cancel", style: .default)
-                
-                // build alert from parts
-                alert.addTextField{ nameField in
-                    nameField.placeholder = "The name for the encrypted file"
-                    nameField.clearButtonMode = .whileEditing
-                }
-                alert.addAction(alertCancelAction)
-                alert.addAction(alertSaveAction)
-                alert.preferredAction = alertSaveAction
-                
-                // present alert
-                self.present(alert, animated: true)
-            }
+        verifyIdentity(ReasonForAuthenticating: "Authorize use of default password") {
+            // Set up alert controler to get password and new filename
+//                let alert = UIAlertController(title: "Enter New File Name", message: nil, preferredStyle: .alert)
+//                // encrypt file on save
+//                let alertSaveAction = UIAlertAction(title: "Submit", style: .default) { action in
+                guard let password = getPasswordFromKeychain(forAccount: ".password") else { return }
+//                    guard let nameField = alert.textFields?[0], let newName = nameField.text else { return }
+//                    print(newName)
+            self.encryptFileWithProgress(password, self.document?.fileURL.lastPathComponent ?? "UNKNOWN NAME")
+//                }
+//                // set up cancel action
+//                let alertCancelAction = UIAlertAction(title: "Cancel", style: .default)
+//
+//                // build alert from parts
+//                alert.addTextField{ nameField in
+//                    nameField.placeholder = "The name for the encrypted file"
+//                    nameField.clearButtonMode = .whileEditing
+//                }
+//                alert.addAction(alertCancelAction)
+//                alert.addAction(alertSaveAction)
+//                alert.preferredAction = alertSaveAction
+//
+//                // present alert
+//                self.present(alert, animated: true)
         }
     }
     
@@ -86,28 +86,31 @@ class EncryptDocumentViewController: UIViewController {
         // Encrypt the file and display UIActivityIndicatorView
         guard let fileURL = self.document?.fileURL else { return }
         self.encryptStackView.isHidden = false
-        self.doneButton.isHidden = true
         DispatchQueue.global(qos: .background).async {
             let result = encryptFile(fileURL, passwd, newName)
             DispatchQueue.main.async {
                 self.encryptStackView.isHidden = true
-                messageAlert(messageTitle: result ? "Success": "Error", messageContent: "", parent: self)
-                self.doneButton.isHidden = false
+                self.dismissDocumentViewController()
             }
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // Access the document
-        document?.open(completionHandler: { (success) in
-            if success {
-                // Display the content of the document, e.g.:
-                self.documentNameLabel.text = self.document?.fileURL.lastPathComponent
-            } else {
-                // Make sure to handle the failed import appropriately, e.g., by presenting an error message to the user.
-            }
-        })
+        
+        self.navigationBar.layer.zPosition = 1
+        self.navigationBar.topItem!.title = self.document?.fileURL.lastPathComponent
+        
+        let uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (self.document?.fileURL)!.pathExtension as CFString, nil)
+        
+        if(UTTypeConformsTo((uti?.takeRetainedValue())!, kUTTypeImage)){
+            self.imageScrollView.setup()
+            
+            let data = NSData(contentsOf: (self.document?.fileURL)!)
+            self.imageScrollView.display(image: UIImage(data: data! as Data)!)
+        }
+        
+        self.documentNameLabel.text = self.document?.fileURL.lastPathComponent
     }
     
     
@@ -145,7 +148,8 @@ class EncryptDocumentViewController: UIViewController {
     // MARK: IB Outlets
     @IBOutlet weak var documentNameLabel: UILabel!
     @IBOutlet var encryptStackView: UIStackView!
-    @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var imageScrollView: ImageScrollView!
+    @IBOutlet weak var navigationBar: UINavigationBar!
 
     // MARK: Class Variables
     var document: UIDocument?

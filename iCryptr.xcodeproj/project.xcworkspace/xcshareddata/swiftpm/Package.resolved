@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "ImageScrollView",
+        "repositoryURL": "https://github.com/huynguyencong/ImageScrollView.git",
+        "state": {
+          "branch": null,
+          "revision": "d64006729ce2f61e63ca7fa34db25a696b14e6e6",
+          "version": "1.9.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

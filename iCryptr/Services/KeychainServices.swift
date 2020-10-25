@@ -21,9 +21,10 @@ fileprivate func getRequestDict(forAccount account: String) -> Dictionary<String
 
 
 func setDefaultPasswordInKeychain(withPassword passwd: String, forAccount account: String) -> Bool {
+    print("setDefaultPasswordInKeychain")
     // if account or password are empty strings
     guard !account.isEmpty, !passwd.isEmpty else { return false }
-    
+    print("accountNotEmpty")
     let passwordData = passwd.data(using: .utf8)
     var requestDict =  getRequestDict(forAccount: account)
     let attrDict = [kSecValueData as String : passwordData] as CFDictionary
@@ -68,20 +69,27 @@ func checkPin(_ pin: String) -> Bool {
 }
 
 func verifyIdentity(ReasonForAuthenticating message: String, completion: @escaping () -> Void) -> Void {
+    print("verifyIdentity")
     // check TouchID
     let reason = message.isEmpty ? "Authorize access" : message
     let context = LAContext()
     var error: NSError?
-    if #available(iOS 8.0, *) {
+    
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, evalReaon in
                 DispatchQueue.main.async {
                     if success {
+                        print("success")
                         completion()
+                    } else {
+                        print(error?.localizedDescription ?? "Failed to authenticate")
+
+                        // Fall back to a asking for username and password.
+                        // ...
                     }
                 }
             }
         }
-    }
+    
 }
 

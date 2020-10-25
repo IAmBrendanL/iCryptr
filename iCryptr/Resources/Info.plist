@@ -66,6 +66,8 @@
 	</array>
 	<key>UISupportsDocumentBrowser</key>
 	<true/>
+	<key>NSFaceIDUsageDescription</key>
+	<string>YES</string>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict/>

@@ -50,7 +50,9 @@ class SettingsViewController: UITableViewController {
     @IBAction func showDefaultPassword() {
         getPin {
             verifyIdentity(ReasonForAuthenticating: "Authorize viewing of default password") {
-                let passwd = getPasswordFromKeychain(forAccount: ".password") ?? "No password saved"
+                let passwd = getPasswordFromKeychain(forAccount: ".password")
+                print("password")
+                print(passwd!)
                 let alert = UIAlertController(title: "Default Password", message: passwd, preferredStyle: .alert)
                 let alertOKAction = UIAlertAction(title: "OK", style: .default)
                 alert.addAction(alertOKAction)

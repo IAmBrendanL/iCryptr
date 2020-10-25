@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B15F56C2545BB6B00B96B9A /* ImageScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 1B15F56B2545BB6B00B96B9A /* ImageScrollView */; };
 		C61486FB204D230C005B8E35 /* DecryptDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61486FA204D230C005B8E35 /* DecryptDocumentViewController.swift */; };
 		C62D71EA20FEF82100E7908F /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62D71E920FEF82100E7908F /* HelperFunctions.swift */; };
 		C689ABBD20551A5C00C4AC66 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C689ABBC20551A5C00C4AC66 /* SettingsViewController.swift */; };
@@ -69,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B15F56C2545BB6B00B96B9A /* ImageScrollView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,6 +182,9 @@
 			dependencies = (
 			);
 			name = iCryptr;
+			packageProductDependencies = (
+				1B15F56B2545BB6B00B96B9A /* ImageScrollView */,
+			);
 			productName = iCryptr;
 			productReference = C64BB2F9202D4F2E00F704F8 /* iCryptr.app */;
 			productType = "com.apple.product-type.application";
@@ -227,21 +232,23 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Brendan Lindsey";
 				TargetAttributes = {
 					C6B937F22027AB65006F6A8A = {
 						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1200;
 						ProvisioningStyle = Automatic;
 					};
 					C6B9380A2027AB65006F6A8A = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1200;
 						ProvisioningStyle = Automatic;
 						TestTargetID = C6B937F22027AB65006F6A8A;
 					};
 					C6B938152027AB65006F6A8A = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1200;
 						ProvisioningStyle = Automatic;
 						TestTargetID = C6B937F22027AB65006F6A8A;
 					};
@@ -256,6 +263,9 @@
 				Base,
 			);
 			mainGroup = C6B937EA2027AB65006F6A8A;
+			packageReferences = (
+				1B15F56A2545BB6B00B96B9A /* XCRemoteSwiftPackageReference "ImageScrollView" */,
+			);
 			productRefGroup = C6B937EA2027AB65006F6A8A;
 			projectDirPath = "";
 			projectRoot = "";
@@ -387,6 +397,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -412,7 +423,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -446,6 +457,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -465,10 +477,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -479,14 +492,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y6FW7TXMBT;
+				DEVELOPMENT_TEAM = FRMMHNBMBZ;
 				INFOPLIST_FILE = "$(SRCROOT)/iCryptr/Resources/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.BrendanLindsey.iCryptr;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.reuben.iCryptr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "iCryptr/Services/iCryptr-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -497,13 +513,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y6FW7TXMBT;
+				DEVELOPMENT_TEAM = FRMMHNBMBZ;
 				INFOPLIST_FILE = "$(SRCROOT)/iCryptr/Resources/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.BrendanLindsey.iCryptr;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.reuben.iCryptr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "iCryptr/Services/iCryptr-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -516,10 +535,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y6FW7TXMBT;
 				INFOPLIST_FILE = iCryptrTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.BrendanLindsey.iCryptrTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iCryptr.app/iCryptr";
 			};
@@ -533,10 +556,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y6FW7TXMBT;
 				INFOPLIST_FILE = iCryptrTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.BrendanLindsey.iCryptrTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iCryptr.app/iCryptr";
 			};
@@ -549,10 +576,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y6FW7TXMBT;
 				INFOPLIST_FILE = iCryptrUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.BrendanLindsey.iCryptrUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = iCryptr;
 			};
@@ -565,10 +596,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y6FW7TXMBT;
 				INFOPLIST_FILE = iCryptrUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.BrendanLindsey.iCryptrUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = iCryptr;
 			};
@@ -614,6 +649,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1B15F56A2545BB6B00B96B9A /* XCRemoteSwiftPackageReference "ImageScrollView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/huynguyencong/ImageScrollView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.9.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1B15F56B2545BB6B00B96B9A /* ImageScrollView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1B15F56A2545BB6B00B96B9A /* XCRemoteSwiftPackageReference "ImageScrollView" */;
+			productName = ImageScrollView;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C6B937EB2027AB65006F6A8A /* Project object */;
 }
