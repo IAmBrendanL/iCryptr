@@ -122,41 +122,43 @@ class EncryptDocumentViewController: UIViewController {
         guard let fileURL = self.document?.fileURL else { return }
 
         DispatchQueue.global(qos: .background).async {
-            let result = encryptFile(fileURL, passwd, self.document!.fileURL.lastPathComponent)
+            createThumbnail(fileURL) {thumb in
+                let result = encryptFile(fileURL, passwd, self.document!.fileURL.lastPathComponent, thumb)
 
-            let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
-            let temporaryDir = ProcessInfo().globallyUniqueString
+                let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+                let temporaryDir = ProcessInfo().globallyUniqueString
 
-            let tempFileDirURL = temporaryDirectoryURL.appendingPathComponent(temporaryDir)
-            self.tempFileURL = tempFileDirURL.appendingPathComponent(result!.fileName)
-            
-            do {
-              try FileManager.default.createDirectory(at: tempFileDirURL, withIntermediateDirectories: true, attributes: nil)
-            } catch {
-                print("temp dir cr failed")
-                return
-            }
-            
-            print(self.tempFileURL!)
-            
-            do {
-                try result!.fileData.write(to: self.tempFileURL!, options: .atomic)
-                print("Written temp file")
-            } catch {
-                print("error")
-                return
-            }
-            
-            
-            DispatchQueue.main.async {
-                let activityViewController = UIActivityViewController(activityItems: [self.tempFileURL!], applicationActivities: nil)
-                 
+                let tempFileDirURL = temporaryDirectoryURL.appendingPathComponent(temporaryDir)
+                self.tempFileURL = tempFileDirURL.appendingPathComponent(result!.fileName)
                 
-                activityViewController.completionWithItemsHandler = { activity, success, items, error in
-                    self.dismissDocumentViewController()
+                do {
+                  try FileManager.default.createDirectory(at: tempFileDirURL, withIntermediateDirectories: true, attributes: nil)
+                } catch {
+                    print("temp dir cr failed")
+                    return
                 }
                 
-                self.present(activityViewController, animated: true)
+                print(self.tempFileURL!)
+                
+                do {
+                    try result!.fileData.write(to: self.tempFileURL!, options: .atomic)
+                    print("Written temp file")
+                } catch {
+                    print("error")
+                    return
+                }
+                
+                
+                DispatchQueue.main.async {
+                    let activityViewController = UIActivityViewController(activityItems: [self.tempFileURL!], applicationActivities: nil)
+                     
+                    
+                    activityViewController.completionWithItemsHandler = { activity, success, items, error in
+                        self.dismissDocumentViewController()
+                    }
+                    
+                    self.present(activityViewController, animated: true)
+                }
             }
         }
     }

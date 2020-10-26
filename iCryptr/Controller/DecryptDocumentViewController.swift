@@ -12,6 +12,7 @@ import AVKit
 
 import ImageScrollView
 
+import BlurHash
 
 class DecryptDocumentViewController: UIViewController {
     
@@ -37,12 +38,11 @@ class DecryptDocumentViewController: UIViewController {
                 return
             }
             
-            if data != nil {
-                if(self.decryptedType == nil) {
-                    self.decryptWithDefaultPasswordFlow()
+            if(self.decryptedType == nil) {
+                if let image = UIImage.init(blurHash: extractThumbnail(data!)!, size: CGSize(width: 32, height: 32)){
+                    self.resultImageScrollView.display(image: image)
                 }
-            } else {
-                // Make sure to handle the failed import appropriately, e.g., by presenting an error message to the user.
+                self.decryptWithDefaultPasswordFlow()
             }
         }
         

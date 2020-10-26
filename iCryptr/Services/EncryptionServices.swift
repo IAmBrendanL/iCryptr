@@ -8,6 +8,8 @@
 
 import Foundation
 
+import QuickLookThumbnailing
+
 let saltSize = 64
 
 
@@ -176,20 +178,26 @@ fileprivate func decryptDataWith(_ key: Data, _ iv: Data, _ cipherData: Data) ->
     - nil: If name len is too long or the binary data is not correctly created
     - Data: the packed file if creation works
  */
-fileprivate func packEncryptedFile(_ salt: Data, _ iv: Data, _ cipherFilenameAndType: Data, _ cipherData: Data) -> Data? {
+fileprivate func packEncryptedFile(_ salt: Data, _ iv: Data, _ cipherFilenameAndType: Data, _ thumb: Data, _ cipherData: Data) -> Data? {
     let lenData = Data(repeating: UInt8(cipherFilenameAndType.count), count: 1)
     // if nameLen did not fit in one byte
     if lenData.count != 1 { return nil }
+    
+    let thumbData = Data(repeating: UInt8(thumb.count), count: 1)
+    if thumbData.count != 1 { return nil }
+    
     var encryptedData = Data()
     
     encryptedData.append(salt)
     encryptedData.append(iv)
     encryptedData.append(lenData)
     encryptedData.append(cipherFilenameAndType)
+    encryptedData.append(thumbData)
+    encryptedData.append(thumb)
     encryptedData.append(cipherData)
     
     // verify that the data length is correct before returning
-    if encryptedData.count != salt.count + iv.count + lenData.count + cipherFilenameAndType.count + cipherData.count {
+    if encryptedData.count != salt.count + iv.count + lenData.count + cipherFilenameAndType.count + thumbData.count + thumb.count + cipherData.count {
         return nil
     }
     return encryptedData
@@ -200,7 +208,7 @@ fileprivate func packEncryptedFile(_ salt: Data, _ iv: Data, _ cipherFilenameAnd
 /**
  Takes in a packed Encrypted File and unpacks it
  */
-fileprivate func unpackEncryptedFile( _ encryptedData: Data) -> (salt: Data, iv: Data, filenameAndType: Data, cipherData: Data)? {
+fileprivate func unpackEncryptedFile( _ encryptedData: Data) -> (salt: Data, iv: Data, filenameAndType: Data, thumb: Data, cipherData: Data)? {
     // need to think about what I want out of this... do I want it to return multiple objects or just parts that are
     // requested via another param and switch statement?
     // helper constant
@@ -213,8 +221,47 @@ fileprivate func unpackEncryptedFile( _ encryptedData: Data) -> (salt: Data, iv:
         return dataPtr.pointee
     }
     let filenameAndType = encryptedData.subdata(in: ivEnd+1..<ivEnd+1+filenameAndTypeLen)
-    let cipherData = encryptedData.subdata(in: ivEnd+1+filenameAndTypeLen..<encryptedData.count)
-    return (salt, iv,filenameAndType, cipherData)
+    
+    let thumbLen = encryptedData.subdata(in: ivEnd+1+filenameAndTypeLen..<ivEnd+1+filenameAndTypeLen+1).withUnsafeBytes { dataPtr -> Int in
+        return dataPtr.pointee
+    }
+    let thumb = encryptedData.subdata(in: ivEnd+1+filenameAndTypeLen+1..<ivEnd+1+filenameAndTypeLen+1+thumbLen)
+    
+    
+    let cipherData = encryptedData.subdata(in: ivEnd+1+filenameAndTypeLen+1+thumbLen..<encryptedData.count)
+    return (salt, iv, filenameAndType, thumb, cipherData)
+}
+
+
+func createThumbnail(_ fileURL: URL, completion: @escaping (String) -> Void) {
+    if #available(iOS 13.0, *) {
+        let previewGenerator = QLThumbnailGenerator()
+        let thumbnailSize = CGSize(width: 50, height: 50)
+        let scale = CGFloat(1)
+        
+        let request = QLThumbnailGenerator.Request(fileAt: fileURL, size: thumbnailSize, scale: scale, representationTypes: .thumbnail)
+        
+        previewGenerator.generateBestRepresentation(for: request) { (thumbnail, error) in
+
+            if let error = error {
+                print(error.localizedDescription)
+            } else if let thumb = thumbnail {
+                let blurhash = thumb.uiImage.blurHash(numberOfComponents: (4, 4))!
+                print(blurhash) // image available
+                
+                completion(blurhash)
+            }
+        }
+        
+    }
+}
+
+func extractThumbnail(_ encryptedData: Data) -> String? {
+    let unpacked = unpackEncryptedFile(encryptedData)
+    
+    if(unpacked?.thumb == nil) {return nil}
+    return String(decoding: unpacked!.thumb, as: UTF8.self)
+    // (salt: Data, iv: Data, filenameAndType: Data, thumb: Data, cipherData: Data)?
 }
 
 
@@ -226,7 +273,7 @@ fileprivate func unpackEncryptedFile( _ encryptedData: Data) -> (salt: Data, iv:
      - passwd: The password to encrypt with
      - encryptedFileName: The file name to write the encrypted file to
  */
-func encryptFile(_ fileURL: URL, _ passwd: String, _ encryptedFileName: String) -> (fileName: String, fileData: Data)? {
+func encryptFile(_ fileURL: URL, _ passwd: String, _ encryptedFileName: String, _ thumb: String) -> (fileName: String, fileData: Data)? {
     do {
         // get parts for encryption
         guard let fileNameData = fileURL.lastPathComponent.data(using: .utf8) else { return nil }
@@ -238,7 +285,7 @@ func encryptFile(_ fileURL: URL, _ passwd: String, _ encryptedFileName: String) 
         guard let encryptedFileNameData = encryptDataWith(key, iv, fileNameData) else { return nil }
         guard let encryptedFile = encryptDataWith(key, iv, fileData) else { return nil }
         // pack bytes and write file out
-        guard let packedEncryptedFile = packEncryptedFile(salt, iv, encryptedFileNameData, encryptedFile) else { return nil }
+        guard let packedEncryptedFile = packEncryptedFile(salt, iv, encryptedFileNameData, thumb.data(using: .utf8)!, encryptedFile) else { return nil }
         
         return (encryptedFileName+".iCryptr", packedEncryptedFile)
         
@@ -269,6 +316,7 @@ func decryptFile(_ fileURL: URL, _ passwd: String) -> (Data, String)? {
                                      (decryptedFileName as NSString).deletingPathExtension,
                                      (decryptedFileName as NSString).pathExtension, decryptedData)
         */
+        print(String(decoding: unpackedFile.thumb, as: UTF8.self))
         return (decryptedData, decryptedFileName)
     } catch {
         return nil
