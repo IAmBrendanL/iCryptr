@@ -75,8 +75,8 @@ func verifyIdentity(ReasonForAuthenticating message: String, completion: @escapi
     let context = LAContext()
     var error: NSError?
     
-        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, evalReaon in
+    if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
+        context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { success, evalReason in
                 DispatchQueue.main.async {
                     if success {
                         print("success")
