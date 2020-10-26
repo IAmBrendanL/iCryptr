@@ -38,6 +38,18 @@
                                 <color key="backgroundColor" systemColor="tertiarySystemFillColor"/>
                                 <items>
                                     <navigationItem title="Title" id="W5P-T7-TCi">
+                                        <leftBarButtonItems>
+                                            <barButtonItem title="Item" image="lock" catalog="system" id="KK1-lx-FPl">
+                                                <connections>
+                                                    <action selector="encryptWithDefaultPasswordFlow" destination="M2k-L8-Olo" id="bp2-18-z5o"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem title="Item" image="pencil.and.ellipsis.rectangle" catalog="system" id="wdN-Vn-Cud">
+                                                <connections>
+                                                    <action selector="encryptWithSpecificPasswordFlow" destination="M2k-L8-Olo" id="3vT-cQ-FtO"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </leftBarButtonItems>
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="5AQ-ky-rgU">
                                             <connections>
                                                 <action selector="dismissDocumentViewController" destination="M2k-L8-Olo" id="oRc-Ns-mur"/>
@@ -53,75 +65,15 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="GMn-eL-dXw"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="QqH-ET-Ghh"/>
                             </scrollView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="2l7-xg-u1v">
-                                <rect key="frame" x="93" y="304" width="228" height="128.33333333333337"/>
-                                <subviews>
-                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" restorationIdentifier="EncryptionStackView" translatesAutoresizingMaskIntoConstraints="NO" id="srY-Fi-cJP">
-                                        <rect key="frame" x="43.333333333333343" y="0.0" width="141.66666666666666" height="0.0"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Encrypting...  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rZ2-a5-iTN">
-                                                <rect key="frame" x="0.0" y="0.0" width="104.66666666666667" height="0.0"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="h0z-4h-eXa">
-                                                <rect key="frame" x="104.66666666666666" y="0.0" width="37" height="0.0"/>
-                                                <color key="color" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </activityIndicatorView>
-                                        </subviews>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="center" alignment="firstBaseline" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Jzy-az-Q3G">
-                                        <rect key="frame" x="7" y="0.0" width="214" height="20.333333333333332"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="File Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TDw-Fo-hfZ">
-                                                <rect key="frame" x="0.0" y="0.0" width="75.666666666666671" height="20.333333333333332"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s46-Uc-0IM">
-                                                <rect key="frame" x="85.666666666666643" y="0.0" width="128.33333333333337" height="20.333333333333332"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                    </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4T1-2n-0pH">
-                                        <rect key="frame" x="0.0" y="44.333333333333314" width="228" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                        <state key="normal" title="Encrypt With Specific Password"/>
-                                        <connections>
-                                            <action selector="getPasswordAndFileName" destination="M2k-L8-Olo" eventType="touchUpInside" id="VsH-SP-7Sg"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dit-T3-qwJ">
-                                        <rect key="frame" x="3" y="98.333333333333314" width="222" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                        <state key="normal" title="Encrypt With Default Password"/>
-                                        <connections>
-                                            <action selector="useDefaultPassword" destination="M2k-L8-Olo" eventType="touchUpInside" id="8bU-Yo-Lle"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="BoZ-jc-2Y8"/>
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="BoZ-jc-2Y8" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="2l7-xg-u1v" secondAttribute="bottom" constant="13" id="8nM-Ey-mUy"/>
-                            <constraint firstItem="BoZ-jc-2Y8" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2l7-xg-u1v" secondAttribute="trailing" constant="26" id="NVA-qg-d89"/>
-                            <constraint firstItem="2l7-xg-u1v" firstAttribute="centerX" secondItem="SIE-Uh-Zny" secondAttribute="centerX" id="UUS-kO-C91"/>
-                            <constraint firstItem="2l7-xg-u1v" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="BoZ-jc-2Y8" secondAttribute="leading" constant="26" id="b2N-8I-X9W"/>
-                            <constraint firstItem="2l7-xg-u1v" firstAttribute="centerY" secondItem="SIE-Uh-Zny" secondAttribute="centerY" id="yEe-m6-dL4"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="QMV-4O-0Wf"/>
                     <connections>
-                        <outlet property="documentNameLabel" destination="s46-Uc-0IM" id="ODW-W7-MBh"/>
-                        <outlet property="encryptStackView" destination="srY-Fi-cJP" id="xHg-gJ-Uzw"/>
                         <outlet property="imageScrollView" destination="tWo-I2-DPz" id="84A-ZI-B1Y"/>
+                        <outlet property="lockButton" destination="KK1-lx-FPl" id="R9p-dL-tG5"/>
+                        <outlet property="lockWithPasswordButton" destination="wdN-Vn-Cud" id="mh6-D1-ftJ"/>
                         <outlet property="navigationBar" destination="xOi-i0-Yxs" id="3dv-wi-hlp"/>
                     </connections>
                 </viewController>
@@ -138,40 +90,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection id="Zwc-aL-fFc">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="aVJ-8S-ZrK">
-                                        <rect key="frame" x="0.0" y="18" width="414" height="48"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aVJ-8S-ZrK" id="ukL-3X-p88">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Force Use of TouchID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xky-ig-KcL">
-                                                    <rect key="frame" x="20" y="13.666666666666664" width="164" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S5f-8k-a0R">
-                                                    <rect key="frame" x="343" y="8.6666666666666643" width="51" height="31"/>
-                                                </switch>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="S5f-8k-a0R" firstAttribute="centerY" secondItem="ukL-3X-p88" secondAttribute="centerY" id="1X8-mn-cwf"/>
-                                                <constraint firstItem="Xky-ig-KcL" firstAttribute="leading" secondItem="ukL-3X-p88" secondAttribute="leadingMargin" id="67W-H8-Vgn"/>
-                                                <constraint firstAttribute="trailing" secondItem="S5f-8k-a0R" secondAttribute="trailing" constant="22" id="a8J-7Q-MrV"/>
-                                                <constraint firstItem="S5f-8k-a0R" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Xky-ig-KcL" secondAttribute="trailing" constant="44" id="bdu-iH-C6J"/>
-                                                <constraint firstItem="Xky-ig-KcL" firstAttribute="centerY" secondItem="ukL-3X-p88" secondAttribute="centerY" id="oOm-Cs-NPH"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                             <tableViewSection id="Rwb-aw-9MZ">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="KsK-ya-tVa">
-                                        <rect key="frame" x="0.0" y="102" width="414" height="48"/>
+                                        <rect key="frame" x="0.0" y="18" width="414" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KsK-ya-tVa" id="84k-pn-1mO">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
@@ -180,7 +102,9 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2qj-Vx-dGW">
                                                     <rect key="frame" x="20" y="10" width="163" height="28"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <state key="normal" title="Set Default Password"/>
+                                                    <state key="normal" title="Set Default Password">
+                                                        <color key="titleColor" systemColor="systemRedColor"/>
+                                                    </state>
                                                     <connections>
                                                         <action selector="setDefaultPassword" destination="L6E-ti-Md6" eventType="touchUpInside" id="TWx-Bd-uQe"/>
                                                     </connections>
@@ -191,89 +115,6 @@
                                                 <constraint firstItem="2qj-Vx-dGW" firstAttribute="leading" secondItem="84k-pn-1mO" secondAttribute="leadingMargin" id="Qb3-Cr-mhU"/>
                                                 <constraint firstItem="2qj-Vx-dGW" firstAttribute="top" secondItem="84k-pn-1mO" secondAttribute="top" constant="10" id="vV0-f1-rzR"/>
                                                 <constraint firstAttribute="bottom" secondItem="2qj-Vx-dGW" secondAttribute="bottom" constant="10" id="wan-x5-Y0p"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection id="u4G-5G-u9W">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="B0i-Od-TFD">
-                                        <rect key="frame" x="0.0" y="186" width="414" height="48"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="B0i-Od-TFD" id="To8-Cf-VRK">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1H1-TS-2eR">
-                                                    <rect key="frame" x="20" y="10" width="179" height="28"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <state key="normal" title="Show Default Password"/>
-                                                    <connections>
-                                                        <action selector="showDefaultPassword" destination="L6E-ti-Md6" eventType="touchUpInside" id="Nbm-nT-iDR"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="1H1-TS-2eR" secondAttribute="bottom" constant="10" id="31S-r8-WUC"/>
-                                                <constraint firstItem="1H1-TS-2eR" firstAttribute="top" secondItem="To8-Cf-VRK" secondAttribute="top" constant="10" id="SW0-2Q-VeC"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1H1-TS-2eR" secondAttribute="trailing" constant="13" id="WTl-nW-Lyz"/>
-                                                <constraint firstItem="1H1-TS-2eR" firstAttribute="leading" secondItem="To8-Cf-VRK" secondAttribute="leadingMargin" id="hfZ-PL-jtW"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection id="kTi-E2-rDK">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="6C6-ln-OkD">
-                                        <rect key="frame" x="0.0" y="270" width="414" height="48"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6C6-ln-OkD" id="AM8-Ul-nrc">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Obm-QM-6wx">
-                                                    <rect key="frame" x="20" y="10" width="111" height="28"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <state key="normal" title="See Directions"/>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Obm-QM-6wx" secondAttribute="trailing" constant="13" id="B5C-Y9-SwX"/>
-                                                <constraint firstItem="Obm-QM-6wx" firstAttribute="top" secondItem="AM8-Ul-nrc" secondAttribute="top" constant="10" id="F8k-KR-TWB"/>
-                                                <constraint firstAttribute="bottom" secondItem="Obm-QM-6wx" secondAttribute="bottom" constant="10" id="HUx-so-ab3"/>
-                                                <constraint firstItem="Obm-QM-6wx" firstAttribute="leading" secondItem="AM8-Ul-nrc" secondAttribute="leadingMargin" id="WSa-Vc-OEN"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection id="cEc-gi-8Rz">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="maJ-Ik-oQY">
-                                        <rect key="frame" x="0.0" y="354" width="414" height="48"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="maJ-Ik-oQY" id="UbM-LG-izW">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OFr-dO-ghj">
-                                                    <rect key="frame" x="20" y="10" width="262" height="28"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <state key="normal" title="Set New Pin and Default Password">
-                                                        <color key="titleColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="setPinAndNewPassword" destination="L6E-ti-Md6" eventType="touchUpInside" id="DxD-ii-kxk"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="OFr-dO-ghj" firstAttribute="leading" secondItem="UbM-LG-izW" secondAttribute="leadingMargin" id="0YR-JV-uSX"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="OFr-dO-ghj" secondAttribute="trailing" constant="13" id="h2l-SR-zDg"/>
-                                                <constraint firstItem="OFr-dO-ghj" firstAttribute="top" secondItem="UbM-LG-izW" secondAttribute="top" constant="10" id="k9C-Dr-Ajf"/>
-                                                <constraint firstAttribute="bottom" secondItem="OFr-dO-ghj" secondAttribute="bottom" constant="10" id="nBj-sk-dQz"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -358,7 +199,7 @@
                                             <color key="titleShadowColor" red="0.57414853570000002" green="0.57416242360000003" blue="0.57415497299999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="decryptFileWithSpecificPassword" destination="0Ri-sj-58N" eventType="touchUpInside" id="2Dh-yo-gZD"/>
+                                            <action selector="decryptWithSpecificPasswordFlow" destination="0Ri-sj-58N" eventType="touchUpInside" id="2Dh-yo-gZD"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qiW-18-jRH">
@@ -366,7 +207,7 @@
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <state key="normal" title="Decrypt With Default Password"/>
                                         <connections>
-                                            <action selector="useDefaultPassword" destination="0Ri-sj-58N" eventType="touchUpInside" id="7yb-3Q-p8B"/>
+                                            <action selector="decryptWithDefaultPasswordFlow" destination="0Ri-sj-58N" eventType="touchUpInside" id="7yb-3Q-p8B"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0SX-La-xdN">
@@ -412,7 +253,7 @@
                         <outlet property="doneButton" destination="0SX-La-xdN" id="tqd-ok-grr"/>
                         <outlet property="navigationBar" destination="Byd-46-zg7" id="uwW-a6-7yn"/>
                         <outlet property="resultImageScrollView" destination="fbP-WZ-slN" id="Tdl-vP-ih9"/>
-                        <outlet property="shareButon" destination="Vbu-cc-mkT" id="wnm-E0-UE4"/>
+                        <outlet property="shareButton" destination="Vbu-cc-mkT" id="yL7-Ww-A4J"/>
                         <outlet property="wholeStackView" destination="fyz-dK-Hsj" id="6vL-tA-JgF"/>
                     </connections>
                 </viewController>
@@ -443,11 +284,16 @@
         </scene>
     </scenes>
     <resources>
+        <image name="lock" catalog="system" width="128" height="128"/>
+        <image name="pencil.and.ellipsis.rectangle" catalog="system" width="128" height="81"/>
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tertiarySystemFillColor">
             <color red="0.46274509803921571" green="0.46274509803921571" blue="0.50196078431372548" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>

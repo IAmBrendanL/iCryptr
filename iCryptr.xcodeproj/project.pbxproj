@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1B15F56C2545BB6B00B96B9A /* ImageScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 1B15F56B2545BB6B00B96B9A /* ImageScrollView */; };
 		C61486FB204D230C005B8E35 /* DecryptDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61486FA204D230C005B8E35 /* DecryptDocumentViewController.swift */; };
-		C62D71EA20FEF82100E7908F /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62D71E920FEF82100E7908F /* HelperFunctions.swift */; };
 		C689ABBD20551A5C00C4AC66 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C689ABBC20551A5C00C4AC66 /* SettingsViewController.swift */; };
 		C69EE8BF203130150020AC45 /* EncryptionServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69EE8BE203130150020AC45 /* EncryptionServices.swift */; };
 		C6B937F72027AB65006F6A8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B937F62027AB65006F6A8A /* AppDelegate.swift */; };
@@ -43,7 +42,6 @@
 
 /* Begin PBXFileReference section */
 		C61486FA204D230C005B8E35 /* DecryptDocumentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecryptDocumentViewController.swift; sourceTree = "<group>"; };
-		C62D71E920FEF82100E7908F /* HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
 		C64BB2F6202D4D5700F704F8 /* iCryptr-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iCryptr-Bridging-Header.h"; sourceTree = "<group>"; };
 		C64BB2F9202D4F2E00F704F8 /* iCryptr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iCryptr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C689ABBC20551A5C00C4AC66 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -121,7 +119,6 @@
 				C64BB2F6202D4D5700F704F8 /* iCryptr-Bridging-Header.h */,
 				C69EE8BE203130150020AC45 /* EncryptionServices.swift */,
 				C6F94D80205625970012E44D /* KeychainServices.swift */,
-				C62D71E920FEF82100E7908F /* HelperFunctions.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -317,7 +314,6 @@
 				C61486FB204D230C005B8E35 /* DecryptDocumentViewController.swift in Sources */,
 				C6B937F92027AB65006F6A8A /* DocumentBrowserViewController.swift in Sources */,
 				C6B937F72027AB65006F6A8A /* AppDelegate.swift in Sources */,
-				C62D71EA20FEF82100E7908F /* HelperFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

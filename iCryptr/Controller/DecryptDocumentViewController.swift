@@ -15,14 +15,67 @@ import ImageScrollView
 
 class DecryptDocumentViewController: UIViewController {
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationBar.layer.zPosition = 1
+        
+        
+        if(self.decryptedData == nil) {
+            self.resultImageScrollView.setup()
+            
+            self.navigationBar.topItem!.title = self.document?.fileURL.lastPathComponent
+            self.documentNameLabel.text = self.document?.fileURL.lastPathComponent
+            self.shareButton.isEnabled = false
+            
+            var data: Data? = nil
+            
+            do {
+                data = try Data(contentsOf: self.document!.fileURL as URL)
+            } catch {
+                print("Unable to load data: \(error)")
+                
+                return
+            }
+            
+            if data != nil {
+                if(self.decryptedType == nil) {
+                    self.decryptWithDefaultPasswordFlow()
+                }
+            } else {
+                // Make sure to handle the failed import appropriately, e.g., by presenting an error message to the user.
+            }
+        }
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if isBeingDismissed && (self.tempFileURL != nil) {
+            do {
+                try FileManager.default.removeItem(at: self.tempFileURL!)
+                print("removed files")
+            } catch {
+                print("failed to remove temporary url with error: \(error)")
+            }
+        }
+        
+    }
+    
+    @IBAction func dismissDocumentViewController() {
+        dismiss(animated: true) {
+            self.document?.close(completionHandler: nil)
+        }
+    }
+    
     // MARK: UIActions for decryption
-    @IBAction func decryptFileWithSpecificPassword() {
+    @IBAction func decryptWithSpecificPasswordFlow() {
         // Set up alert controller to get password
         let alert = UIAlertController(title: "Enter Password", message: "", preferredStyle: .alert)
         // decrypt file on save
         let alertSaveAction = UIAlertAction(title: "Submit", style: .default) { action in
             guard let passwordField = alert.textFields?[0], let password = passwordField.text else { return }
-            self.decryptFileWithProgress(password)
+            self.decryptCommonFlow(password)
         }
         let alertCancelAction = UIAlertAction(title: "Cancel", style: .default)
         
@@ -42,54 +95,60 @@ class DecryptDocumentViewController: UIViewController {
         present(alert, animated: true)
     }
    
-    @IBAction func dismissDocumentViewController() {
-        dismiss(animated: true) {
-            self.document?.close(completionHandler: nil)
-        }
-    }
-
-    @IBAction func useDefaultPassword() {
+    @IBAction func decryptWithDefaultPasswordFlow() {
         verifyIdentity(ReasonForAuthenticating: "Authorize use of default password") {
             guard let passwd = getPasswordFromKeychain(forAccount: ".password") else { return }
-            self.decryptFileWithProgress(passwd)
+            self.decryptCommonFlow(passwd)
         }
     }
     
 
     // MARK: Class Methods
-    func decryptFileWithProgress(_ passwd: String)  {
+    func decryptCommonFlow(_ passwd: String)  {
         // Dencrypt the file and display UIActivityIndicatorView
         guard let fileURL = self.document?.fileURL else { return }
         self.decryptStackView.isHidden = false
         self.doneButton.isHidden = true
         DispatchQueue.global(qos: .background).async {
-            let (data, filename) = decryptFile(fileURL, passwd) ?? (nil, nil)
-            self.decryptedData = data
+            let (fileData, fileName) = decryptFile(fileURL, passwd) ?? (nil, nil)
+            self.decryptedData = fileData
             
             
             DispatchQueue.main.async {
-                if(data != nil) {
-                    self.shareButon.isEnabled = true
-                    self.shareButon.action = #selector(self.share)
-                    self.shareButon.target = self
+                if(fileData != nil) {
+                    self.shareButton.isEnabled = true
+                    self.shareButton.action = #selector(self.share)
+                    self.shareButton.target = self
                     
+                    self.documentNameLabel.text = fileName!
+                    self.navigationBar.topItem!.title = fileName!
+                    print(fileName!)
                     
                     let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
-                    let temporaryFilename = ProcessInfo().globallyUniqueString
+                    let temporaryDir = ProcessInfo().globallyUniqueString
 
-                    self.tempFileURL = temporaryDirectoryURL.appendingPathComponent(temporaryFilename + filename!)
+                    let tempFileDirURL = temporaryDirectoryURL.appendingPathComponent(temporaryDir)
+                    self.tempFileURL = tempFileDirURL.appendingPathComponent(fileName!)
+                    
+                    do {
+                      try FileManager.default.createDirectory(at: tempFileDirURL, withIntermediateDirectories: true, attributes: nil)
+                    } catch {
+                        print("temp dir cr failed")
+                        return
+                    }
                     
                     print(self.tempFileURL!)
                     
                     do {
-                        try data!.write(to: self.tempFileURL!, options: .atomic)
-                        print("Written")
+                        try fileData!.write(to: self.tempFileURL!, options: .atomic)
+                        print("Written temp file")
                     } catch {
                         print("error")
                         return
                     }
                     
-                    if let image = UIImage(data: data!){
+                    
+                    if let image = UIImage(data: fileData!){
                         self.resultImageScrollView.display(image: image)
                         self.wholeStackView.isHidden = true
                         self.decryptStackView.isHidden = true
@@ -124,81 +183,6 @@ class DecryptDocumentViewController: UIViewController {
         self.present(activityViewController, animated: true, completion: nil)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationBar.layer.zPosition = 1
-        self.navigationBar.topItem!.title = self.document?.fileURL.lastPathComponent
-        
-        if(self.decryptedData == nil) {
-            self.shareButon.isEnabled = false
-        }
-        
-    
-        
-        
-        
-        // Access the document
-        document?.open(completionHandler: { (success) in
-            if success {
-                // Display the content of the document, e.g.:
-                self.documentNameLabel.text = self.document?.fileURL.lastPathComponent
-                self.resultImageScrollView.setup()
-                
-                if(self.decryptedType == nil) {
-                    self.useDefaultPassword()
-                }
-            } else {
-                // Make sure to handle the failed import appropriately, e.g., by presenting an error message to the user.
-            }
-        })
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        if isBeingDismissed && (self.tempFileURL != nil) {
-            do {
-                try FileManager.default.removeItem(at: self.tempFileURL!)
-                print("removed files")
-            } catch {
-                print("failed to remove temporary url with error: \(error)")
-            }
-        }
-        
-    }
-    
-    
-    // MARK: Private Methods
-    private func getPin(_ completion: @escaping () -> Void) {
-        // Set up alert controller to get password
-        let alert = UIAlertController(title: "Enter Pin", message: nil, preferredStyle: .alert)
-        // set default password on save
-        let alertSaveAction = UIAlertAction(title: "Submit", style: .default) { action in
-            guard let pinField = alert.textFields?[0], let pin = pinField.text else { return }
-            if checkPin(pin) {
-                completion()
-            }
-        }
-        let alertCancelAction = UIAlertAction(title: "Cancel", style: .default)
-        
-        // build alert from parts
-        alert.addTextField { pinField in
-            pinField.placeholder = "Password"
-            pinField.clearButtonMode = .whileEditing
-            pinField.isSecureTextEntry = true
-            pinField.autocapitalizationType = .none
-            pinField.autocorrectionType = .no
-            pinField.keyboardType = .numberPad
-        }
-        alert.addAction(alertCancelAction)
-        alert.addAction(alertSaveAction)
-        alert.preferredAction = alertSaveAction
-        
-        // present alert
-        self.present(alert, animated: true)
-    }
-    
-    
     // MARK IBOutlets
     @IBOutlet weak var wholeStackView: UIStackView!
     
@@ -207,7 +191,7 @@ class DecryptDocumentViewController: UIViewController {
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var resultImageScrollView: ImageScrollView!
     @IBOutlet weak var navigationBar: UINavigationBar!
-    @IBOutlet weak var shareButon: UIBarButtonItem!
+    @IBOutlet weak var shareButton: UIBarButtonItem!
     
     enum DecryptedType {
         case image

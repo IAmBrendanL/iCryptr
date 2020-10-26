@@ -62,11 +62,6 @@ func clearKeychainData(forAccount account: String) -> Bool {
     return true
 }
 
-func checkPin(_ pin: String) -> Bool {
-    // check pin first
-    guard !pin.isEmpty, let savedPin = getPasswordFromKeychain(forAccount: ".pin") else { return false }
-    return pin == savedPin
-}
 
 func verifyIdentity(ReasonForAuthenticating message: String, completion: @escaping () -> Void) -> Void {
     print("verifyIdentity")
