@@ -8,15 +8,41 @@
 //
 
 import Foundation
+import UIKit
 
 import QuickLookThumbnailing
 
-func extractThumbnail(_ encryptedData: Data) -> String? {
-    let unpacked = unpackEncryptedFile(encryptedData)
-    
-    if(unpacked?.thumb == nil) {return nil}
-    return String(decoding: unpacked!.thumb, as: UTF8.self)
-    // (salt: Data, iv: Data, filenameAndType: Data, thumb: Data, cipherData: Data)?
+func extractThumbnail(_ fileURL: URL) -> UIImage? {
+    if #available(iOS 13.4, *) {
+        let file: FileHandle
+        let blurHash: String
+            
+        do {
+            file = try FileHandle(forReadingFrom: fileURL)
+            
+            try file.seek(toOffset: UInt64(saltSize + kCCBlockSizeAES128))
+            let filenameAndTypeLen: Int = try file.read(upToCount: 1)!.withUnsafeBytes({ $0.pointee })
+            
+            try file.seek(toOffset: UInt64(ivEnd + 1 + filenameAndTypeLen))
+            let thumbLen: Int = try file.read(upToCount: 1)!.withUnsafeBytes({ $0.pointee })
+            
+            try file.seek(toOffset: UInt64(ivEnd + 1 + filenameAndTypeLen + 1))
+            let thumbData = try file.read(upToCount: thumbLen)!
+            
+            file.closeFile()
+            
+            blurHash = String(decoding: thumbData, as: UTF8.self)
+            
+            NSLog("extractThumbnail - \(fileURL.lastPathComponent) - blurHash extracted \(blurHash)" )
+        } catch {NSLog("extractThumbnail - \(fileURL.lastPathComponent) - file ops error \(error)"); return nil}
+        
+
+        let im = UIImage.init(blurHash: blurHash, size: CGSize(width: 32, height: 32))
+
+        if(im == nil) {NSLog("extractThumbnail - \(fileURL.lastPathComponent) - image creation failed \(fileURL)  \(blurHash)"); return nil}
+        
+        return im
+    } else { NSLog("extractThumbnail - \(fileURL.lastPathComponent) - iOS version failure"); return nil}
 }
 
 func createThumbnail(_ fileURL: URL, completion: @escaping (String) -> Void) {
@@ -33,7 +59,6 @@ func createThumbnail(_ fileURL: URL, completion: @escaping (String) -> Void) {
                 print(error.localizedDescription)
             } else if let thumb = thumbnail {
                 let blurhash = thumb.uiImage.blurHash(numberOfComponents: (4, 4))!
-                print(blurhash) // image available
                 
                 completion(blurhash)
             }

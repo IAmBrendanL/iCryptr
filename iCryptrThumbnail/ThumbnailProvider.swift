@@ -2,29 +2,16 @@ import UIKit
 import AVFoundation
 import QuickLookThumbnailing
 
+let ivEnd = saltSize + kCCBlockSizeAES128
+// read filenameAndTypeLen from ivEnd..<ivEnd+1 = 1
+// read thumbLen from ivEnd+1+filenameAndTypeLen..<ivEnd+1+filenameAndTypeLen+1 = ivEnd+1+filenameAndTypeLen+1 - ivEnd+1+filenameAndTypeLen
+// read thumb from ivEnd+1+filenameAndTypeLen+1..<ivEnd+1+filenameAndTypeLen+1+thumbLen =
+
 class ThumbnailProvider: QLThumbnailProvider {
     override func provideThumbnail(for request: QLFileThumbnailRequest, _ handler: @escaping (QLThumbnailReply?, Error?) -> Void) {
-        NSLog("thumbnail gen start \(request.fileURL)" )
-        var data: Data? = nil
-        
-        do {
-            data = try Data(contentsOf: request.fileURL as URL)
-        } catch {
-            print("Unable to load data: \(error)")
+        let im = extractThumbnail(request.fileURL)
+        if(im == nil) {return}
             
-            return
-        }
-        let blurHash = extractThumbnail(data!)
-        
-        if(blurHash == nil) {NSLog("thumbnail empty"); return}
-        
-        let im = UIImage.init(blurHash: blurHash!, size: CGSize(width: 32, height: 32))
-        
-        
-        
-        if(im == nil) {NSLog("thumbnail image creation failed \(request.fileURL)  \(blurHash!)"); return}
-        NSLog("\(request.fileURL)  \(blurHash!)")
-        
         let maxsz = request.maximumSize
         let r = AVMakeRect(aspectRatio: im!.size, insideRect: CGRect(origin:.zero, size:maxsz))
 

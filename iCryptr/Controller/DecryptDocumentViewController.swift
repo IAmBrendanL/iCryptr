@@ -26,18 +26,8 @@ class DecryptDocumentViewController: UIViewController {
             self.documentNameLabel.text = self.document?.fileURL.lastPathComponent
             self.shareButton.isEnabled = false
             
-            var data: Data? = nil
-            
-            do {
-                data = try Data(contentsOf: self.document!.fileURL as URL)
-            } catch {
-                print("Unable to load data: \(error)")
-                
-                return
-            }
-            
             if(self.decryptedType == nil) {
-                if let image = UIImage.init(blurHash: extractThumbnail(data!)!, size: CGSize(width: 32, height: 32)){
+                if let image = extractThumbnail(self.document!.fileURL){
                     self.resultImageScrollView.display(image: image)
                 }
                 self.decryptWithDefaultPasswordFlow()
