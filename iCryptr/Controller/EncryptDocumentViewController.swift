@@ -20,6 +20,7 @@ class EncryptDocumentViewController: UIViewController {
         
         self.navigationBar.layer.zPosition = 1
         self.navigationBar.topItem!.title = self.document?.fileURL.lastPathComponent
+        self.activityIndicator.stopAnimating()
         
         var data: Data? = nil
         
@@ -88,7 +89,7 @@ class EncryptDocumentViewController: UIViewController {
         // encrypt file on save
         let alertSaveAction = UIAlertAction(title: "Submit", style: .default) { action in
             guard let passwordField = alert.textFields?[0], let password = passwordField.text else { return }
-            self.encryptCommonFlow(password)
+            self.encryptCommonFlow(password){_ in}
         }
         // set up cancel action
         let alertCancelAction = UIAlertAction(title: "Cancel", style: .default)
@@ -113,12 +114,14 @@ class EncryptDocumentViewController: UIViewController {
     @IBAction func encryptWithDefaultPasswordFlow() {
         verifyIdentity(ReasonForAuthenticating: "Authorize use of default password") {
             guard let password = getPasswordFromKeychain(forAccount: ".password") else { return }
-            self.encryptCommonFlow(password)
+            self.encryptCommonFlow(password){_ in}
         }
     }
 
     // MARK: Class Methods
-    func encryptCommonFlow(_ passwd: String)  {
+    func encryptCommonFlow(_ passwd: String, completion: @escaping (Bool) -> Void) -> Void  {
+        self.activityIndicator.startAnimating()
+        
         guard let fileURL = self.document?.fileURL else { return }
 
         DispatchQueue.global(qos: .background).async {
@@ -135,7 +138,7 @@ class EncryptDocumentViewController: UIViewController {
                   try FileManager.default.createDirectory(at: tempFileDirURL, withIntermediateDirectories: true, attributes: nil)
                 } catch {
                     print("temp dir cr failed")
-                    return
+                    return completion(false)
                 }
                 
                 print(self.tempFileURL!)
@@ -145,11 +148,14 @@ class EncryptDocumentViewController: UIViewController {
                     print("Written temp file")
                 } catch {
                     print("error")
-                    return
+                    return completion(false)
                 }
                 
                 
                 DispatchQueue.main.async {
+                    completion(true)
+                    self.activityIndicator.stopAnimating()
+                    
                     let activityViewController = UIActivityViewController(activityItems: [self.tempFileURL!], applicationActivities: nil)
                      
                     
@@ -169,6 +175,8 @@ class EncryptDocumentViewController: UIViewController {
     
     @IBOutlet weak var lockButton: UIBarButtonItem!
     @IBOutlet weak var lockWithPasswordButton: UIBarButtonItem!
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var tempFileURL: URL? = nil
 

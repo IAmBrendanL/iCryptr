@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -32,6 +31,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tWo-I2-DPz" customClass="ImageScrollView" customModule="ImageScrollView">
+                                <rect key="frame" x="0.0" y="44" width="414" height="692"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                <viewLayoutGuide key="contentLayoutGuide" id="GMn-eL-dXw"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="QqH-ET-Ghh"/>
+                            </scrollView>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xOi-i0-Yxs">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -44,7 +50,7 @@
                                                     <action selector="encryptWithDefaultPasswordFlow" destination="M2k-L8-Olo" id="bp2-18-z5o"/>
                                                 </connections>
                                             </barButtonItem>
-                                            <barButtonItem title="Item" image="pencil.and.ellipsis.rectangle" catalog="system" id="wdN-Vn-Cud">
+                                            <barButtonItem title="Item" image="rectangle.and.pencil.and.ellipsis" catalog="system" id="wdN-Vn-Cud">
                                                 <connections>
                                                     <action selector="encryptWithSpecificPasswordFlow" destination="M2k-L8-Olo" id="3vT-cQ-FtO"/>
                                                 </connections>
@@ -58,19 +64,17 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tWo-I2-DPz" customClass="ImageScrollView" customModule="ImageScrollView">
+                            <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" id="BgH-rh-bSw">
                                 <rect key="frame" x="0.0" y="44" width="414" height="692"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
-                                <viewLayoutGuide key="contentLayoutGuide" id="GMn-eL-dXw"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="QqH-ET-Ghh"/>
-                            </scrollView>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="BoZ-jc-2Y8"/>
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="QMV-4O-0Wf"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="BgH-rh-bSw" id="SxR-hK-zsi"/>
                         <outlet property="imageScrollView" destination="tWo-I2-DPz" id="84A-ZI-B1Y"/>
                         <outlet property="lockButton" destination="KK1-lx-FPl" id="R9p-dL-tG5"/>
                         <outlet property="lockWithPasswordButton" destination="wdN-Vn-Cud" id="mh6-D1-ftJ"/>
@@ -157,76 +161,24 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="jLZ-GS-MWF"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="fzZ-KG-Fkm"/>
                             </scrollView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="fyz-dK-Hsj">
-                                <rect key="frame" x="92.666666666666686" y="275" width="229" height="186.33333333333337"/>
-                                <subviews>
-                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wwd-x2-uRa">
-                                        <rect key="frame" x="42.666666666666671" y="0.0" width="143.66666666666663" height="0.0"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Decrypting...  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ux-W4-JSI">
-                                                <rect key="frame" x="0.0" y="0.0" width="106.66666666666667" height="0.0"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="JYr-mm-ZJe">
-                                                <rect key="frame" x="106.66666666666666" y="0.0" width="37" height="0.0"/>
-                                                <color key="color" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </activityIndicatorView>
-                                        </subviews>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="firstBaseline" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jyw-ho-1Kc">
-                                        <rect key="frame" x="7.3333333333333286" y="0.0" width="214" height="20.333333333333332"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="File Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOT-Cw-Ux3">
-                                                <rect key="frame" x="0.0" y="0.0" width="75.666666666666671" height="20.333333333333332"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z2f-ko-9fa">
-                                                <rect key="frame" x="85.666666666666643" y="0.0" width="128.33333333333337" height="20.333333333333332"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                    </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zgT-9W-FAz">
-                                        <rect key="frame" x="0.0" y="44.333333333333314" width="229" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                        <state key="normal" title="Decrypt With Specific Password">
-                                            <color key="titleShadowColor" red="0.57414853570000002" green="0.57416242360000003" blue="0.57415497299999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="decryptWithSpecificPasswordFlow" destination="0Ri-sj-58N" eventType="touchUpInside" id="2Dh-yo-gZD"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qiW-18-jRH">
-                                        <rect key="frame" x="3" y="98.333333333333314" width="223" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                        <state key="normal" title="Decrypt With Default Password"/>
-                                        <connections>
-                                            <action selector="decryptWithDefaultPasswordFlow" destination="0Ri-sj-58N" eventType="touchUpInside" id="7yb-3Q-p8B"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0SX-La-xdN">
-                                        <rect key="frame" x="92.999999999999986" y="152.33333333333331" width="43.000000000000014" height="34"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <state key="normal" title="Done"/>
-                                        <connections>
-                                            <action selector="dismissDocumentViewController" destination="0Ri-sj-58N" eventType="touchUpInside" id="JvP-g4-f0N"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
+                            <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="ewS-az-25c">
+                                <rect key="frame" x="0.0" y="44" width="414" height="692"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                            </activityIndicatorView>
                             <navigationBar contentMode="scaleToFill" id="Byd-46-zg7">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="tertiarySystemFillColor"/>
                                 <items>
                                     <navigationItem title="Title" id="vgX-ZL-MKG">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="Vbu-cc-mkT"/>
+                                        <leftBarButtonItems>
+                                            <barButtonItem systemItem="action" id="Vbu-cc-mkT"/>
+                                            <barButtonItem title="Item" image="lock.open" catalog="system" id="HeI-XF-wId">
+                                                <connections>
+                                                    <action selector="decryptWithSpecificPasswordFlow" destination="0Ri-sj-58N" id="BXR-A3-20W"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </leftBarButtonItems>
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="oF1-ld-GK5">
                                             <connections>
                                                 <action selector="dismissDocumentViewController" destination="0Ri-sj-58N" id="CND-cl-dv1"/>
@@ -238,23 +190,13 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="J0f-Mr-2gc"/>
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="J0f-Mr-2gc" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fyz-dK-Hsj" secondAttribute="trailing" constant="26" id="EfW-Lc-Hi9"/>
-                            <constraint firstItem="fyz-dK-Hsj" firstAttribute="centerX" secondItem="2aB-gw-MgQ" secondAttribute="centerX" id="XWH-Cj-cSl"/>
-                            <constraint firstItem="J0f-Mr-2gc" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fyz-dK-Hsj" secondAttribute="bottom" constant="13" id="dtC-rN-ZTb"/>
-                            <constraint firstItem="fyz-dK-Hsj" firstAttribute="top" relation="greaterThanOrEqual" secondItem="J0f-Mr-2gc" secondAttribute="top" constant="13" id="g58-gk-CPf"/>
-                            <constraint firstItem="fyz-dK-Hsj" firstAttribute="centerY" secondItem="2aB-gw-MgQ" secondAttribute="centerY" id="iH5-Ac-RHU"/>
-                            <constraint firstItem="fyz-dK-Hsj" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="J0f-Mr-2gc" secondAttribute="leading" constant="26" id="rIG-KR-xSa"/>
-                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="decryptStackView" destination="wwd-x2-uRa" id="KK6-4y-R2Q"/>
-                        <outlet property="documentNameLabel" destination="z2f-ko-9fa" id="Xkn-gL-73r"/>
-                        <outlet property="doneButton" destination="0SX-La-xdN" id="tqd-ok-grr"/>
+                        <outlet property="activityIndicator" destination="ewS-az-25c" id="LE0-Vd-4Tt"/>
                         <outlet property="navigationBar" destination="Byd-46-zg7" id="uwW-a6-7yn"/>
                         <outlet property="resultImageScrollView" destination="fbP-WZ-slN" id="Tdl-vP-ih9"/>
                         <outlet property="shareButton" destination="Vbu-cc-mkT" id="yL7-Ww-A4J"/>
-                        <outlet property="wholeStackView" destination="fyz-dK-Hsj" id="6vL-tA-JgF"/>
+                        <outlet property="unlockButton" destination="HeI-XF-wId" id="fET-HL-reb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B9a-cX-sc1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -285,7 +227,8 @@
     </scenes>
     <resources>
         <image name="lock" catalog="system" width="128" height="128"/>
-        <image name="pencil.and.ellipsis.rectangle" catalog="system" width="128" height="81"/>
+        <image name="lock.open" catalog="system" width="128" height="110"/>
+        <image name="rectangle.and.pencil.and.ellipsis" catalog="system" width="128" height="81"/>
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

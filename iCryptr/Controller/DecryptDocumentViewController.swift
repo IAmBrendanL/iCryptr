@@ -23,12 +23,12 @@ class DecryptDocumentViewController: UIViewController {
             self.resultImageScrollView.setup()
             
             self.navigationBar.topItem!.title = self.document?.fileURL.lastPathComponent
-            self.documentNameLabel.text = self.document?.fileURL.lastPathComponent
             self.shareButton.isEnabled = false
             
             if(self.decryptedType == nil) {
                 if let image = extractThumbnail(self.document!.fileURL){
                     self.resultImageScrollView.display(image: image)
+                    self.unlockButton.isEnabled = true
                 }
                 self.decryptWithDefaultPasswordFlow()
             }
@@ -63,7 +63,7 @@ class DecryptDocumentViewController: UIViewController {
         // decrypt file on save
         let alertSaveAction = UIAlertAction(title: "Submit", style: .default) { action in
             guard let passwordField = alert.textFields?[0], let password = passwordField.text else { return }
-            self.decryptCommonFlow(password)
+            self.decryptCommonFlow(password){_ in}
         }
         let alertCancelAction = UIAlertAction(title: "Cancel", style: .default)
         
@@ -86,31 +86,36 @@ class DecryptDocumentViewController: UIViewController {
     @IBAction func decryptWithDefaultPasswordFlow() {
         verifyIdentity(ReasonForAuthenticating: "Authorize use of default password") {
             guard let passwd = getPasswordFromKeychain(forAccount: ".password") else { return }
-            self.decryptCommonFlow(passwd)
+            self.decryptCommonFlow(passwd) {success in
+                if(!success) {
+                    self.decryptWithSpecificPasswordFlow()
+                }
+            }
         }
     }
     
 
     // MARK: Class Methods
-    func decryptCommonFlow(_ passwd: String)  {
+    func decryptCommonFlow(_ passwd: String, completion: @escaping (Bool) -> Void) -> Void  {
+        self.activityIndicator.startAnimating()
         // Dencrypt the file and display UIActivityIndicatorView
-        guard let fileURL = self.document?.fileURL else { return }
-        self.decryptStackView.isHidden = false
-        self.doneButton.isHidden = true
+        guard let fileURL = self.document?.fileURL else { return completion(false)}
         DispatchQueue.global(qos: .background).async {
             let (fileData, fileName) = decryptFile(fileURL, passwd) ?? (nil, nil)
             self.decryptedData = fileData
             
             
             DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+                
                 if(fileData != nil) {
+                    completion(true)
                     self.shareButton.isEnabled = true
                     self.shareButton.action = #selector(self.share)
                     self.shareButton.target = self
                     
-                    self.documentNameLabel.text = fileName!
                     self.navigationBar.topItem!.title = fileName!
-                    print(fileName!)
+                    self.unlockButton.isEnabled = false
                     
                     let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
                     let temporaryDir = ProcessInfo().globallyUniqueString
@@ -122,7 +127,7 @@ class DecryptDocumentViewController: UIViewController {
                       try FileManager.default.createDirectory(at: tempFileDirURL, withIntermediateDirectories: true, attributes: nil)
                     } catch {
                         print("temp dir cr failed")
-                        return
+                        return completion(false)
                     }
                     
                     print(self.tempFileURL!)
@@ -132,20 +137,15 @@ class DecryptDocumentViewController: UIViewController {
                         print("Written temp file")
                     } catch {
                         print("error")
-                        return
+                        return completion(false)
                     }
+                    
                     
                     
                     if let image = UIImage(data: fileData!){
                         self.resultImageScrollView.display(image: image)
-                        self.wholeStackView.isHidden = true
-                        self.decryptStackView.isHidden = true
-                        self.doneButton.isHidden = false
                         self.decryptedType = .image
-
                     } else {
-                        
-                        
                         let avAsset = AVURLAsset(url: self.tempFileURL!)
 
                         if(avAsset.isPlayable) {
@@ -160,6 +160,10 @@ class DecryptDocumentViewController: UIViewController {
                         
                         
                     }
+                } else {
+                    print("Decrypt Failed")
+                    
+                    completion(false)
                 }
             }
         }
@@ -172,14 +176,11 @@ class DecryptDocumentViewController: UIViewController {
     }
     
     // MARK IBOutlets
-    @IBOutlet weak var wholeStackView: UIStackView!
-    
-    @IBOutlet weak var documentNameLabel: UILabel!
-    @IBOutlet weak var decryptStackView: UIStackView!
-    @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var resultImageScrollView: ImageScrollView!
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var shareButton: UIBarButtonItem!
+    @IBOutlet weak var unlockButton: UIBarButtonItem!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     enum DecryptedType {
         case image
