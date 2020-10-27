@@ -12,8 +12,6 @@ import AVKit
 
 import ImageScrollView
 
-import BlurHash
-
 class DecryptDocumentViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {

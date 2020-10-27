@@ -178,7 +178,7 @@ fileprivate func decryptDataWith(_ key: Data, _ iv: Data, _ cipherData: Data) ->
     - nil: If name len is too long or the binary data is not correctly created
     - Data: the packed file if creation works
  */
-fileprivate func packEncryptedFile(_ salt: Data, _ iv: Data, _ cipherFilenameAndType: Data, _ thumb: Data, _ cipherData: Data) -> Data? {
+func packEncryptedFile(_ salt: Data, _ iv: Data, _ cipherFilenameAndType: Data, _ thumb: Data, _ cipherData: Data) -> Data? {
     let lenData = Data(repeating: UInt8(cipherFilenameAndType.count), count: 1)
     // if nameLen did not fit in one byte
     if lenData.count != 1 { return nil }
@@ -208,7 +208,7 @@ fileprivate func packEncryptedFile(_ salt: Data, _ iv: Data, _ cipherFilenameAnd
 /**
  Takes in a packed Encrypted File and unpacks it
  */
-fileprivate func unpackEncryptedFile( _ encryptedData: Data) -> (salt: Data, iv: Data, filenameAndType: Data, thumb: Data, cipherData: Data)? {
+func unpackEncryptedFile( _ encryptedData: Data) -> (salt: Data, iv: Data, filenameAndType: Data, thumb: Data, cipherData: Data)? {
     // need to think about what I want out of this... do I want it to return multiple objects or just parts that are
     // requested via another param and switch statement?
     // helper constant
@@ -231,40 +231,6 @@ fileprivate func unpackEncryptedFile( _ encryptedData: Data) -> (salt: Data, iv:
     let cipherData = encryptedData.subdata(in: ivEnd+1+filenameAndTypeLen+1+thumbLen..<encryptedData.count)
     return (salt, iv, filenameAndType, thumb, cipherData)
 }
-
-
-func createThumbnail(_ fileURL: URL, completion: @escaping (String) -> Void) {
-    if #available(iOS 13.0, *) {
-        let previewGenerator = QLThumbnailGenerator()
-        let thumbnailSize = CGSize(width: 50, height: 50)
-        let scale = CGFloat(1)
-        
-        let request = QLThumbnailGenerator.Request(fileAt: fileURL, size: thumbnailSize, scale: scale, representationTypes: .thumbnail)
-        
-        previewGenerator.generateBestRepresentation(for: request) { (thumbnail, error) in
-
-            if let error = error {
-                print(error.localizedDescription)
-            } else if let thumb = thumbnail {
-                let blurhash = thumb.uiImage.blurHash(numberOfComponents: (4, 4))!
-                print(blurhash) // image available
-                
-                completion(blurhash)
-            }
-        }
-        
-    }
-}
-
-func extractThumbnail(_ encryptedData: Data) -> String? {
-    let unpacked = unpackEncryptedFile(encryptedData)
-    
-    if(unpacked?.thumb == nil) {return nil}
-    return String(decoding: unpacked!.thumb, as: UTF8.self)
-    // (salt: Data, iv: Data, filenameAndType: Data, thumb: Data, cipherData: Data)?
-}
-
-
 
 /**
  Encrypts a file and writes out the encrypted data

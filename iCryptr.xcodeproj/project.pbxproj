@@ -8,16 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		1B15F56C2545BB6B00B96B9A /* ImageScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 1B15F56B2545BB6B00B96B9A /* ImageScrollView */; };
+		1B8578CB254824E6006183DA /* BlurHashEncode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4F31025474CBB004FDE3C /* BlurHashEncode.swift */; };
 		1BF4F31125474CBB004FDE3C /* BlurHashEncode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4F31025474CBB004FDE3C /* BlurHashEncode.swift */; };
-		1BF4F31925475A81004FDE3C /* BlurHashDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4F31825475A81004FDE3C /* BlurHashDecode.swift */; };
 		1BF4F33F25475BED004FDE3C /* QuickLookThumbnailing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BF4F32325475BBA004FDE3C /* QuickLookThumbnailing.framework */; };
 		1BF4F34225475BED004FDE3C /* ThumbnailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4F34125475BED004FDE3C /* ThumbnailProvider.swift */; };
 		1BF4F34625475BED004FDE3C /* iCryptrThumbnail.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1BF4F33E25475BED004FDE3C /* iCryptrThumbnail.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		1BF4F37E254775E2004FDE3C /* BlurHashDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4F37C254775E2004FDE3C /* BlurHashDecode.swift */; };
-		1BF4F37F254775E2004FDE3C /* ThumbnailServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4F37D254775E2004FDE3C /* ThumbnailServices.swift */; };
+		1BF4F3E6254813DE004FDE3C /* ThumbnailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4F34125475BED004FDE3C /* ThumbnailProvider.swift */; };
+		1BF4F45725481AB5004FDE3C /* EncryptionServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4F45325481AB5004FDE3C /* EncryptionServices.swift */; };
+		1BF4F45825481AB5004FDE3C /* EncryptionServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4F45325481AB5004FDE3C /* EncryptionServices.swift */; };
+		1BF4F45925481AB5004FDE3C /* ThumbnailServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4F45425481AB5004FDE3C /* ThumbnailServices.swift */; };
+		1BF4F45A25481AB5004FDE3C /* ThumbnailServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4F45425481AB5004FDE3C /* ThumbnailServices.swift */; };
+		1BF4F45B25481AB5004FDE3C /* BlurHashDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4F45625481AB5004FDE3C /* BlurHashDecode.swift */; };
+		1BF4F45C25481AB5004FDE3C /* BlurHashDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4F45625481AB5004FDE3C /* BlurHashDecode.swift */; };
 		C61486FB204D230C005B8E35 /* DecryptDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61486FA204D230C005B8E35 /* DecryptDocumentViewController.swift */; };
 		C689ABBD20551A5C00C4AC66 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C689ABBC20551A5C00C4AC66 /* SettingsViewController.swift */; };
-		C69EE8BF203130150020AC45 /* EncryptionServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69EE8BE203130150020AC45 /* EncryptionServices.swift */; };
 		C6B937F72027AB65006F6A8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B937F62027AB65006F6A8A /* AppDelegate.swift */; };
 		C6B937F92027AB65006F6A8A /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B937F82027AB65006F6A8A /* DocumentBrowserViewController.swift */; };
 		C6B937FB2027AB65006F6A8A /* EncryptDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B937FA2027AB65006F6A8A /* EncryptDocumentViewController.swift */; };
@@ -25,8 +29,6 @@
 		C6B938002027AB65006F6A8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6B937FE2027AB65006F6A8A /* Main.storyboard */; };
 		C6B938022027AB65006F6A8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6B938012027AB65006F6A8A /* Assets.xcassets */; };
 		C6B938052027AB65006F6A8A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6B938032027AB65006F6A8A /* LaunchScreen.storyboard */; };
-		C6B938102027AB65006F6A8A /* iCryptrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B9380F2027AB65006F6A8A /* iCryptrTests.swift */; };
-		C6B9381B2027AB65006F6A8A /* iCryptrUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B9381A2027AB65006F6A8A /* iCryptrUITests.swift */; };
 		C6F94D81205625970012E44D /* KeychainServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F94D80205625970012E44D /* KeychainServices.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,20 +39,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 1BF4F33D25475BED004FDE3C;
 			remoteInfo = iCryptrThumbnail;
-		};
-		C6B9380C2027AB65006F6A8A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C6B937EB2027AB65006F6A8A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C6B937F22027AB65006F6A8A;
-			remoteInfo = iCryptr;
-		};
-		C6B938172027AB65006F6A8A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C6B937EB2027AB65006F6A8A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C6B937F22027AB65006F6A8A;
-			remoteInfo = iCryptr;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -69,22 +57,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1BF4F31025474CBB004FDE3C /* BlurHashEncode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurHashEncode.swift; sourceTree = "<group>"; };
-		1BF4F31825475A81004FDE3C /* BlurHashDecode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurHashDecode.swift; sourceTree = "<group>"; };
+		1BF4F31025474CBB004FDE3C /* BlurHashEncode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlurHashEncode.swift; path = ../iCryptr/Services/BlurHashEncode.swift; sourceTree = "<group>"; };
 		1BF4F32325475BBA004FDE3C /* QuickLookThumbnailing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLookThumbnailing.framework; path = System/Library/Frameworks/QuickLookThumbnailing.framework; sourceTree = SDKROOT; };
 		1BF4F33E25475BED004FDE3C /* iCryptrThumbnail.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = iCryptrThumbnail.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BF4F34125475BED004FDE3C /* ThumbnailProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailProvider.swift; sourceTree = "<group>"; };
 		1BF4F34325475BED004FDE3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1BF4F37625477555004FDE3C /* iCryptr-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iCryptr-Bridging-Header.h"; sourceTree = "<group>"; };
-		1BF4F37C254775E2004FDE3C /* BlurHashDecode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurHashDecode.swift; sourceTree = "<group>"; };
-		1BF4F37D254775E2004FDE3C /* ThumbnailServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailServices.swift; sourceTree = "<group>"; };
+		1BF4F45325481AB5004FDE3C /* EncryptionServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncryptionServices.swift; sourceTree = "<group>"; };
+		1BF4F45425481AB5004FDE3C /* ThumbnailServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailServices.swift; sourceTree = "<group>"; };
+		1BF4F45525481AB5004FDE3C /* iCryptr-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iCryptr-Bridging-Header.h"; sourceTree = "<group>"; };
+		1BF4F45625481AB5004FDE3C /* BlurHashDecode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurHashDecode.swift; sourceTree = "<group>"; };
 		C61486FA204D230C005B8E35 /* DecryptDocumentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecryptDocumentViewController.swift; sourceTree = "<group>"; };
-		C64BB2F6202D4D5700F704F8 /* iCryptr-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iCryptr-Bridging-Header.h"; sourceTree = "<group>"; };
 		C64BB2F9202D4F2E00F704F8 /* iCryptr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iCryptr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C689ABBC20551A5C00C4AC66 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		C69EE8BB2030EE3E0020AC45 /* iCryptrTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iCryptrTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C69EE8BC2030EE3E0020AC45 /* iCryptrUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iCryptrUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C69EE8BE203130150020AC45 /* EncryptionServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptionServices.swift; sourceTree = "<group>"; };
 		C6B937F62027AB65006F6A8A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C6B937F82027AB65006F6A8A /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
 		C6B937FA2027AB65006F6A8A /* EncryptDocumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptDocumentViewController.swift; sourceTree = "<group>"; };
@@ -93,10 +77,6 @@
 		C6B938012027AB65006F6A8A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C6B938042027AB65006F6A8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C6B938062027AB65006F6A8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C6B9380F2027AB65006F6A8A /* iCryptrTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCryptrTests.swift; sourceTree = "<group>"; };
-		C6B938112027AB65006F6A8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C6B9381A2027AB65006F6A8A /* iCryptrUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCryptrUITests.swift; sourceTree = "<group>"; };
-		C6B9381C2027AB65006F6A8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6F94D80205625970012E44D /* KeychainServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServices.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -117,20 +97,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C6B938082027AB65006F6A8A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C6B938132027AB65006F6A8A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -145,13 +111,22 @@
 		1BF4F34025475BED004FDE3C /* iCryptrThumbnail */ = {
 			isa = PBXGroup;
 			children = (
-				1BF4F37C254775E2004FDE3C /* BlurHashDecode.swift */,
-				1BF4F37D254775E2004FDE3C /* ThumbnailServices.swift */,
-				1BF4F37625477555004FDE3C /* iCryptr-Bridging-Header.h */,
 				1BF4F34125475BED004FDE3C /* ThumbnailProvider.swift */,
 				1BF4F34325475BED004FDE3C /* Info.plist */,
 			);
 			path = iCryptrThumbnail;
+			sourceTree = "<group>";
+		};
+		1BF4F45225481AB5004FDE3C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				1BF4F31025474CBB004FDE3C /* BlurHashEncode.swift */,
+				1BF4F45325481AB5004FDE3C /* EncryptionServices.swift */,
+				1BF4F45425481AB5004FDE3C /* ThumbnailServices.swift */,
+				1BF4F45525481AB5004FDE3C /* iCryptr-Bridging-Header.h */,
+				1BF4F45625481AB5004FDE3C /* BlurHashDecode.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		C61486FC204D2343005B8E35 /* Controller */ = {
@@ -181,24 +156,18 @@
 		C69EE8BD20312FD80020AC45 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				1BF4F31025474CBB004FDE3C /* BlurHashEncode.swift */,
-				C64BB2F6202D4D5700F704F8 /* iCryptr-Bridging-Header.h */,
-				C69EE8BE203130150020AC45 /* EncryptionServices.swift */,
-				1BF4F31825475A81004FDE3C /* BlurHashDecode.swift */,
 				C6F94D80205625970012E44D /* KeychainServices.swift */,
 			);
-			path = Services;
-			sourceTree = "<group>";
+			name = Services;
+			path = /Users/reuben/Projects/iCryptr/iCryptr/Services;
+			sourceTree = "<absolute>";
 		};
 		C6B937EA2027AB65006F6A8A = {
 			isa = PBXGroup;
 			children = (
+				1BF4F45225481AB5004FDE3C /* Common */,
 				C6B937F52027AB65006F6A8A /* iCryptr */,
-				C6B9380E2027AB65006F6A8A /* iCryptrTests */,
-				C6B938192027AB65006F6A8A /* iCryptrUITests */,
 				C64BB2F9202D4F2E00F704F8 /* iCryptr.app */,
-				C69EE8BB2030EE3E0020AC45 /* iCryptrTests.xctest */,
-				C69EE8BC2030EE3E0020AC45 /* iCryptrUITests.xctest */,
 				1BF4F34025475BED004FDE3C /* iCryptrThumbnail */,
 				1BF4F32225475BBA004FDE3C /* Frameworks */,
 				1BF4F33E25475BED004FDE3C /* iCryptrThumbnail.appex */,
@@ -213,24 +182,6 @@
 				C61486FD204D2365005B8E35 /* Resources */,
 			);
 			path = iCryptr;
-			sourceTree = "<group>";
-		};
-		C6B9380E2027AB65006F6A8A /* iCryptrTests */ = {
-			isa = PBXGroup;
-			children = (
-				C6B9380F2027AB65006F6A8A /* iCryptrTests.swift */,
-				C6B938112027AB65006F6A8A /* Info.plist */,
-			);
-			path = iCryptrTests;
-			sourceTree = "<group>";
-		};
-		C6B938192027AB65006F6A8A /* iCryptrUITests */ = {
-			isa = PBXGroup;
-			children = (
-				C6B9381A2027AB65006F6A8A /* iCryptrUITests.swift */,
-				C6B9381C2027AB65006F6A8A /* Info.plist */,
-			);
-			path = iCryptrUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -275,42 +226,6 @@
 			productReference = C64BB2F9202D4F2E00F704F8 /* iCryptr.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C6B9380A2027AB65006F6A8A /* iCryptrTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C6B938222027AB65006F6A8A /* Build configuration list for PBXNativeTarget "iCryptrTests" */;
-			buildPhases = (
-				C6B938072027AB65006F6A8A /* Sources */,
-				C6B938082027AB65006F6A8A /* Frameworks */,
-				C6B938092027AB65006F6A8A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C6B9380D2027AB65006F6A8A /* PBXTargetDependency */,
-			);
-			name = iCryptrTests;
-			productName = iCryptrTests;
-			productReference = C69EE8BB2030EE3E0020AC45 /* iCryptrTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		C6B938152027AB65006F6A8A /* iCryptrUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C6B938252027AB65006F6A8A /* Build configuration list for PBXNativeTarget "iCryptrUITests" */;
-			buildPhases = (
-				C6B938122027AB65006F6A8A /* Sources */,
-				C6B938132027AB65006F6A8A /* Frameworks */,
-				C6B938142027AB65006F6A8A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C6B938182027AB65006F6A8A /* PBXTargetDependency */,
-			);
-			name = iCryptrUITests;
-			productName = iCryptrUITests;
-			productReference = C69EE8BC2030EE3E0020AC45 /* iCryptrUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -328,18 +243,6 @@
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 1200;
 						ProvisioningStyle = Automatic;
-					};
-					C6B9380A2027AB65006F6A8A = {
-						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 1200;
-						ProvisioningStyle = Automatic;
-						TestTargetID = C6B937F22027AB65006F6A8A;
-					};
-					C6B938152027AB65006F6A8A = {
-						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 1200;
-						ProvisioningStyle = Automatic;
-						TestTargetID = C6B937F22027AB65006F6A8A;
 					};
 				};
 			};
@@ -360,8 +263,6 @@
 			projectRoot = "";
 			targets = (
 				C6B937F22027AB65006F6A8A /* iCryptr */,
-				C6B9380A2027AB65006F6A8A /* iCryptrTests */,
-				C6B938152027AB65006F6A8A /* iCryptrUITests */,
 				1BF4F33D25475BED004FDE3C /* iCryptrThumbnail */,
 			);
 		};
@@ -385,20 +286,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C6B938092027AB65006F6A8A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C6B938142027AB65006F6A8A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -406,9 +293,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1BF4F37F254775E2004FDE3C /* ThumbnailServices.swift in Sources */,
-				1BF4F37E254775E2004FDE3C /* BlurHashDecode.swift in Sources */,
+				1BF4F45A25481AB5004FDE3C /* ThumbnailServices.swift in Sources */,
+				1BF4F45825481AB5004FDE3C /* EncryptionServices.swift in Sources */,
+				1BF4F45C25481AB5004FDE3C /* BlurHashDecode.swift in Sources */,
 				1BF4F34225475BED004FDE3C /* ThumbnailProvider.swift in Sources */,
+				1B8578CB254824E6006183DA /* BlurHashEncode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,32 +305,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C69EE8BF203130150020AC45 /* EncryptionServices.swift in Sources */,
 				1BF4F31125474CBB004FDE3C /* BlurHashEncode.swift in Sources */,
 				C6F94D81205625970012E44D /* KeychainServices.swift in Sources */,
 				C6B937FD2027AB65006F6A8A /* Document.swift in Sources */,
+				1BF4F45725481AB5004FDE3C /* EncryptionServices.swift in Sources */,
 				C689ABBD20551A5C00C4AC66 /* SettingsViewController.swift in Sources */,
 				C6B937FB2027AB65006F6A8A /* EncryptDocumentViewController.swift in Sources */,
 				C61486FB204D230C005B8E35 /* DecryptDocumentViewController.swift in Sources */,
+				1BF4F45925481AB5004FDE3C /* ThumbnailServices.swift in Sources */,
 				C6B937F92027AB65006F6A8A /* DocumentBrowserViewController.swift in Sources */,
-				1BF4F31925475A81004FDE3C /* BlurHashDecode.swift in Sources */,
+				1BF4F3E6254813DE004FDE3C /* ThumbnailProvider.swift in Sources */,
+				1BF4F45B25481AB5004FDE3C /* BlurHashDecode.swift in Sources */,
 				C6B937F72027AB65006F6A8A /* AppDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C6B938072027AB65006F6A8A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C6B938102027AB65006F6A8A /* iCryptrTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C6B938122027AB65006F6A8A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C6B9381B2027AB65006F6A8A /* iCryptrUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,16 +327,6 @@
 			isa = PBXTargetDependency;
 			target = 1BF4F33D25475BED004FDE3C /* iCryptrThumbnail */;
 			targetProxy = 1BF4F34425475BED004FDE3C /* PBXContainerItemProxy */;
-		};
-		C6B9380D2027AB65006F6A8A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C6B937F22027AB65006F6A8A /* iCryptr */;
-			targetProxy = C6B9380C2027AB65006F6A8A /* PBXContainerItemProxy */;
-		};
-		C6B938182027AB65006F6A8A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C6B937F22027AB65006F6A8A /* iCryptr */;
-			targetProxy = C6B938172027AB65006F6A8A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -503,6 +368,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.reuben.iCryptr.iCryptrThumbnail;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Common/iCryptr-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -525,6 +391,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.reuben.iCryptr.iCryptrThumbnail;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Common/iCryptr-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -584,9 +451,12 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 			};
 			name = Debug;
 		};
@@ -637,9 +507,12 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -659,7 +532,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.reuben.iCryptr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "iCryptr/Services/iCryptr-Bridging-Header.h";
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Common/iCryptr-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -681,91 +555,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.reuben.iCryptr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "iCryptr/Services/iCryptr-Bridging-Header.h";
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Common/iCryptr-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		C6B938232027AB65006F6A8A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y6FW7TXMBT;
-				INFOPLIST_FILE = iCryptrTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.BrendanLindsey.iCryptrTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iCryptr.app/iCryptr";
-			};
-			name = Debug;
-		};
-		C6B938242027AB65006F6A8A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y6FW7TXMBT;
-				INFOPLIST_FILE = iCryptrTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.BrendanLindsey.iCryptrTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iCryptr.app/iCryptr";
-			};
-			name = Release;
-		};
-		C6B938262027AB65006F6A8A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y6FW7TXMBT;
-				INFOPLIST_FILE = iCryptrUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.BrendanLindsey.iCryptrUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = iCryptr;
-			};
-			name = Debug;
-		};
-		C6B938272027AB65006F6A8A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y6FW7TXMBT;
-				INFOPLIST_FILE = iCryptrUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.BrendanLindsey.iCryptrUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = iCryptr;
 			};
 			name = Release;
 		};
@@ -795,24 +588,6 @@
 			buildConfigurations = (
 				C6B938202027AB65006F6A8A /* Debug */,
 				C6B938212027AB65006F6A8A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C6B938222027AB65006F6A8A /* Build configuration list for PBXNativeTarget "iCryptrTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C6B938232027AB65006F6A8A /* Debug */,
-				C6B938242027AB65006F6A8A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C6B938252027AB65006F6A8A /* Build configuration list for PBXNativeTarget "iCryptrUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C6B938262027AB65006F6A8A /* Debug */,
-				C6B938272027AB65006F6A8A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
