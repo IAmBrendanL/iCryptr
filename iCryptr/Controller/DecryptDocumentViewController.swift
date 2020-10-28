@@ -63,6 +63,7 @@ class DecryptDocumentViewController: UIViewController {
         if(self.decryptedData != nil) {
             self.decryptedData = nil
             self.viewWillAppear(false)
+            if((self.presentedViewController) != nil) {self.presentedViewController!.dismiss(animated: false) {}}
         }
     }
     
