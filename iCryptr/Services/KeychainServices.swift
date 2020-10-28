@@ -63,7 +63,7 @@ func clearKeychainData(forAccount account: String) -> Bool {
 }
 
 
-func verifyIdentity(ReasonForAuthenticating message: String, completion: @escaping () -> Void) -> Void {
+func verifyIdentity(ReasonForAuthenticating message: String, completion: @escaping (Bool) -> Void) -> Void {
     print("verifyIdentity")
     // check TouchID
     let reason = message.isEmpty ? "Authorize access" : message
@@ -75,12 +75,10 @@ func verifyIdentity(ReasonForAuthenticating message: String, completion: @escapi
                 DispatchQueue.main.async {
                     if success {
                         print("success")
-                        completion()
+                        completion(true)
                     } else {
                         print(error?.localizedDescription ?? "Failed to authenticate")
-
-                        // Fall back to a asking for username and password.
-                        // ...
+                        completion(false)
                     }
                 }
             }

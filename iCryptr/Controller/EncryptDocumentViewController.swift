@@ -112,9 +112,13 @@ class EncryptDocumentViewController: UIViewController {
     }
     
     @IBAction func encryptWithDefaultPasswordFlow() {
-        verifyIdentity(ReasonForAuthenticating: "Authorize use of default password") {
-            guard let password = getPasswordFromKeychain(forAccount: ".password") else { return }
-            self.encryptCommonFlow(password){_ in}
+        verifyIdentity(ReasonForAuthenticating: "Authorize use of default password") {authenticated in
+            if(authenticated) {
+                guard let password = getPasswordFromKeychain(forAccount: ".password") else { return }
+                self.encryptCommonFlow(password){_ in}
+            } else {
+                self.activityIndicator.stopAnimating()
+            }
         }
     }
 

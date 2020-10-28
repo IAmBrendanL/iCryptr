@@ -25,13 +25,12 @@ class DecryptDocumentViewController: UIViewController {
             self.navigationBar.topItem!.title = self.document?.fileURL.lastPathComponent
             self.shareButton.isEnabled = false
             
-            if(self.decryptedType == nil) {
-                if let image = extractThumbnail(self.document!.fileURL){
-                    self.resultImageScrollView.display(image: image)
-                    self.unlockButton.isEnabled = true
-                }
-                self.decryptWithDefaultPasswordFlow()
+            
+            if let image = extractThumbnail(self.document!.fileURL){
+                self.resultImageScrollView.display(image: image)
+                self.unlockButton.isEnabled = true
             }
+            self.decryptWithDefaultPasswordFlow()
         }
         
     }
@@ -84,12 +83,16 @@ class DecryptDocumentViewController: UIViewController {
     }
    
     @IBAction func decryptWithDefaultPasswordFlow() {
-        verifyIdentity(ReasonForAuthenticating: "Authorize use of default password") {
-            guard let passwd = getPasswordFromKeychain(forAccount: ".password") else { return }
-            self.decryptCommonFlow(passwd) {success in
-                if(!success) {
-                    self.decryptWithSpecificPasswordFlow()
+        verifyIdentity(ReasonForAuthenticating: "Authorize use of default password") {authenticated in
+            if(authenticated) {
+                guard let passwd = getPasswordFromKeychain(forAccount: ".password") else { return }
+                self.decryptCommonFlow(passwd) {success in
+                    if(!success) {
+                        self.decryptWithSpecificPasswordFlow()
+                    }
                 }
+            } else {
+                self.activityIndicator.stopAnimating()
             }
         }
     }
@@ -102,7 +105,7 @@ class DecryptDocumentViewController: UIViewController {
         guard let fileURL = self.document?.fileURL else { return completion(false)}
         DispatchQueue.global(qos: .background).async {
             let (fileData, fileName) = decryptFile(fileURL, passwd) ?? (nil, nil)
-            self.decryptedData = fileData
+            
             
             
             DispatchQueue.main.async {
@@ -110,6 +113,9 @@ class DecryptDocumentViewController: UIViewController {
                 
                 if(fileData != nil) {
                     completion(true)
+                    
+                    self.decryptedData = fileData
+                    
                     self.shareButton.isEnabled = true
                     self.shareButton.action = #selector(self.share)
                     self.shareButton.target = self
@@ -144,21 +150,18 @@ class DecryptDocumentViewController: UIViewController {
                     
                     if let image = UIImage(data: fileData!){
                         self.resultImageScrollView.display(image: image)
-                        self.decryptedType = .image
                     } else {
                         let avAsset = AVURLAsset(url: self.tempFileURL!)
 
                         if(avAsset.isPlayable) {
                             let player = AVPlayer(url: self.tempFileURL!)
-                            self.decryptedType = .video
                             let playerViewController = AVPlayerViewController()
                             playerViewController.player = player
+                            
                             self.present(playerViewController, animated: true) {
                                 playerViewController.player!.play()
                             }
                         }
-                        
-                        
                     }
                 } else {
                     print("Decrypt Failed")
@@ -171,7 +174,7 @@ class DecryptDocumentViewController: UIViewController {
     
     @objc private func share() {
         let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: [self.tempFileURL!], applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView=self.view
+        activityViewController.popoverPresentationController?.sourceView = self.view
         self.present(activityViewController, animated: true, completion: nil)
     }
     
@@ -187,7 +190,6 @@ class DecryptDocumentViewController: UIViewController {
         case video
     }
     
-    var decryptedType: DecryptedType? = nil
     var decryptedData: Data? = nil
     
     var tempFileURL: URL? = nil
