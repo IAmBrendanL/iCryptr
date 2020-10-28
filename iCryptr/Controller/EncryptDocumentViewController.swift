@@ -155,6 +155,7 @@ class EncryptDocumentViewController: UIViewController {
                     
                     let activityViewController = UIActivityViewController(activityItems: [self.tempFileURL!], applicationActivities: nil)
                      
+                    activityViewController.popoverPresentationController?.sourceView = self.view
                     
                     activityViewController.completionWithItemsHandler = { activity, success, items, error in
                         self.dismissDocumentViewController()
