@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MobileCoreServices
 
 
 class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate {
@@ -57,14 +58,16 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
     // MARK: View Presentation
     func presentDocument(at documentURL: URL) {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        // switch on file extention
-        if documentURL.pathExtension == "iCryptr" {
+        
+        let document = Document(fileURL: documentURL)
+        
+        if(document.savingFileType == "com.reuben.icryptr.encryptedfile") {
             let documentViewController = storyBoard.instantiateViewController(withIdentifier: "DecryptViewController") as! DecryptDocumentViewController
-            documentViewController.document = Document(fileURL: documentURL)
+            documentViewController.document = document
             present(documentViewController, animated: true, completion: nil)
         } else {
             let documentViewController = storyBoard.instantiateViewController(withIdentifier: "EncryptViewController") as! EncryptDocumentViewController
-            documentViewController.document = Document(fileURL: documentURL)
+            documentViewController.document = document
             present(documentViewController, animated: true, completion: nil)
         }
     }
