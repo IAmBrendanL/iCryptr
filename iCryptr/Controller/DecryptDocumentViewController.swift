@@ -25,6 +25,10 @@ class DecryptDocumentViewController: UIViewController {
         if(self.decryptedData == nil) {
             self.resultImageScrollView.setup()
             
+            if let viewWithTag = self.view.viewWithTag(100) {
+                viewWithTag.removeFromSuperview()
+            }
+            
             self.navigationBar.topItem!.title = self.document?.fileURL.lastPathComponent
             self.shareButton.isEnabled = false
             
@@ -210,6 +214,7 @@ class DecryptDocumentViewController: UIViewController {
                             
                             quickLookViewController.view.bounds = self.resultImageScrollView.bounds
                             quickLookViewController.view.frame = self.resultImageScrollView.frame
+                            quickLookViewController.view.tag = 100
                             
                             self.addChild(quickLookViewController)
                             self.view.insertSubview(quickLookViewController.view, at: 1)
