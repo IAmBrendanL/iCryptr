@@ -17,6 +17,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         delegate = self
         allowsDocumentCreation = false
         allowsPickingMultipleItems = false
+        shouldShowFileExtensions = true
         
         // Update the style of the UIDocumentBrowserViewController
         browserUserInterfaceStyle = .white
