@@ -16,6 +16,7 @@ class DecryptDocumentViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.activityIndicator.stopAnimating()
         self.navigationBar.layer.zPosition = 1
         
         
@@ -32,7 +33,6 @@ class DecryptDocumentViewController: UIViewController {
             }
             self.decryptWithDefaultPasswordFlow()
         }
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -47,6 +47,30 @@ class DecryptDocumentViewController: UIViewController {
             }
         }
         
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+    @objc func appMovedToBackground() {
+        if(ignoreActiveNotifications == true) {return}
+        print("bg")
+        self.isAppInBackground = true
+        if(self.decryptedData != nil) {
+            self.decryptedData = nil
+            self.viewWillAppear(false)
+        }
+    }
+    
+    @objc func appMovedToForeground() {
+        if(ignoreActiveNotifications == true) {return}
+        print("fg")
+        self.isAppInBackground = false
+        if(self.decryptedData == nil) {self.viewWillAppear(false)}
     }
     
     @IBAction func dismissDocumentViewController() {
@@ -83,7 +107,21 @@ class DecryptDocumentViewController: UIViewController {
     }
    
     @IBAction func decryptWithDefaultPasswordFlow() {
+        self.ignoreActiveNotifications = true
+        print("ignoreActiveNotifications true")
+        
+        if self.isAppInBackground {
+            print("skipping touchid not active")
+            print("ignoreActiveNotifications false")
+            self.ignoreActiveNotifications = false
+            return
+        }
         verifyIdentity(ReasonForAuthenticating: "Authorize use of default password") {authenticated in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                print("ignoreActiveNotifications false")
+                self.ignoreActiveNotifications = false
+            }
+                
             if(authenticated) {
                 guard let passwd = getPasswordFromKeychain(forAccount: ".password") else { return }
                 self.decryptCommonFlow(passwd) {success in
@@ -193,6 +231,9 @@ class DecryptDocumentViewController: UIViewController {
     var decryptedData: Data? = nil
     
     var tempFileURL: URL? = nil
+    
+    var ignoreActiveNotifications = false
+    var isAppInBackground = false
     
     //Mark Class Variables
     var document: UIDocument?
