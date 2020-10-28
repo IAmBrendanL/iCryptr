@@ -12,10 +12,13 @@ import UIKit
 
 import QuickLookThumbnailing
 
+let thumbnailStringSeperator = "><"
+let blurHashWidth = 4
+
 func extractThumbnail(_ fileURL: URL) -> UIImage? {
     if #available(iOS 13.4, *) {
         let file: FileHandle
-        let blurHash: String
+        let thumbnailString: String
             
         do {
             file = try FileHandle(forReadingFrom: fileURL)
@@ -31,38 +34,44 @@ func extractThumbnail(_ fileURL: URL) -> UIImage? {
             
             file.closeFile()
             
-            blurHash = String(decoding: thumbData, as: UTF8.self)
+            thumbnailString = String(decoding: thumbData, as: UTF8.self)
             
-            NSLog("extractThumbnail - \(fileURL.lastPathComponent) - blurHash extracted \(blurHash)" )
+            NSLog("extractThumbnail - \(fileURL.lastPathComponent) - blurHash extracted \(thumbnailString)" )
         } catch {NSLog("extractThumbnail - \(fileURL.lastPathComponent) - file ops error \(error)"); return nil}
         
+        let split = thumbnailString.components(separatedBy: thumbnailStringSeperator)
+        let blurHash = split[0]
+        let aspectString = split.count == 2 ? split[1] : nil
+        
+        let aspectRatio = aspectString != nil ? (aspectString! as NSString).floatValue : 1
+        
+        let thumbnailWidth = 50
+        let thumbnailHeight = Int(Float(thumbnailWidth) * aspectRatio)
+        let im = UIImage.init(blurHash: blurHash, size: CGSize(width: thumbnailWidth, height: thumbnailHeight))
 
-        let im = UIImage.init(blurHash: blurHash, size: CGSize(width: 32, height: 32))
-
-        if(im == nil) {NSLog("extractThumbnail - \(fileURL.lastPathComponent) - image creation failed \(fileURL)  \(blurHash)"); return nil}
+        if(im == nil) {NSLog("extractThumbnail - \(fileURL.lastPathComponent) - image creation failed \(fileURL)  \(thumbnailString)"); return nil}
         
         return im
     } else { NSLog("extractThumbnail - \(fileURL.lastPathComponent) - iOS version failure"); return nil}
 }
 
 func createThumbnail(_ fileURL: URL, completion: @escaping (String) -> Void) {
-    if #available(iOS 13.0, *) {
-        let previewGenerator = QLThumbnailGenerator()
-        let thumbnailSize = CGSize(width: 50, height: 50)
-        let scale = CGFloat(1)
-        
-        let request = QLThumbnailGenerator.Request(fileAt: fileURL, size: thumbnailSize, scale: scale, representationTypes: .thumbnail)
-        
-        previewGenerator.generateBestRepresentation(for: request) { (thumbnail, error) in
-
-            if let error = error {
-                print(error.localizedDescription)
-            } else if let thumb = thumbnail {
-                let blurhash = thumb.uiImage.blurHash(numberOfComponents: (4, 4))!
-                
-                completion(blurhash)
-            }
+    let thumbnailWidth = 50
+    let thumbnailHeight = thumbnailWidth
+    
+    let previewGenerator = QLThumbnailGenerator()
+    let request = QLThumbnailGenerator.Request(fileAt: fileURL, size: CGSize(width: thumbnailWidth, height: thumbnailHeight), scale: CGFloat(1), representationTypes: .thumbnail)
+    
+    previewGenerator.generateBestRepresentation(for: request) { (thumbnail, error) in
+        if let error = error {
+            print(error.localizedDescription)
+        } else if let thumb = thumbnail {
+            let aspectRatio = Float(thumb.uiImage.size.height / thumb.uiImage.size.width)
+            let blurHashHeight = min(Int(Float(blurHashWidth) * aspectRatio), 9)
+            
+            let thumbnailString = thumb.uiImage.blurHash(numberOfComponents: (blurHashWidth, blurHashHeight))! + thumbnailStringSeperator + aspectRatio.description
+            
+            completion(thumbnailString)
         }
-        
     }
 }
