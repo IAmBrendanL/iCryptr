@@ -10,6 +10,8 @@ import UIKit
 import AVFoundation
 import AVKit
 
+import QuickLook
+
 import ImageScrollView
 
 class DecryptDocumentViewController: UIViewController {
@@ -184,9 +186,7 @@ class DecryptDocumentViewController: UIViewController {
                         print("error")
                         return completion(false)
                     }
-                    
-                    
-                    
+
                     if let image = UIImage(data: fileData!){
                         self.resultImageScrollView.display(image: image)
                     } else {
@@ -200,6 +200,21 @@ class DecryptDocumentViewController: UIViewController {
                             self.present(playerViewController, animated: true) {
                                 playerViewController.player!.play()
                             }
+                        } else {
+                            let quickLookViewController = QLPreviewController()
+
+                            let instance = QLPreviewControllerSingleDataSource(fileURL: self.tempFileURL!)
+                            
+                            quickLookViewController.dataSource = instance
+                            quickLookViewController.currentPreviewItemIndex = 0
+                            
+                            quickLookViewController.view.bounds = self.resultImageScrollView.bounds
+                            quickLookViewController.view.frame = self.resultImageScrollView.frame
+                            
+                            self.addChild(quickLookViewController)
+                            self.view.insertSubview(quickLookViewController.view, at: 1)
+                            
+                            quickLookViewController.reloadData()
                         }
                     }
                 } else {

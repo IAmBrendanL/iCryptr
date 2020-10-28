@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1B15F56C2545BB6B00B96B9A /* ImageScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 1B15F56B2545BB6B00B96B9A /* ImageScrollView */; };
 		1B8578CB254824E6006183DA /* BlurHashEncode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4F31025474CBB004FDE3C /* BlurHashEncode.swift */; };
+		1B9A43252549E72900CFDABC /* DocumentViewerCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9A43242549E72900CFDABC /* DocumentViewerCommon.swift */; };
 		1BF4F31125474CBB004FDE3C /* BlurHashEncode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4F31025474CBB004FDE3C /* BlurHashEncode.swift */; };
 		1BF4F33F25475BED004FDE3C /* QuickLookThumbnailing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BF4F32325475BBA004FDE3C /* QuickLookThumbnailing.framework */; };
 		1BF4F34225475BED004FDE3C /* ThumbnailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4F34125475BED004FDE3C /* ThumbnailProvider.swift */; };
@@ -57,6 +58,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1B9A43242549E72900CFDABC /* DocumentViewerCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewerCommon.swift; sourceTree = "<group>"; };
 		1BF4F31025474CBB004FDE3C /* BlurHashEncode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlurHashEncode.swift; path = ../iCryptr/Services/BlurHashEncode.swift; sourceTree = "<group>"; };
 		1BF4F32325475BBA004FDE3C /* QuickLookThumbnailing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLookThumbnailing.framework; path = System/Library/Frameworks/QuickLookThumbnailing.framework; sourceTree = SDKROOT; };
 		1BF4F33E25475BED004FDE3C /* iCryptrThumbnail.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = iCryptrThumbnail.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +127,7 @@
 				1BF4F45425481AB5004FDE3C /* ThumbnailServices.swift */,
 				1BF4F45525481AB5004FDE3C /* iCryptr-Bridging-Header.h */,
 				1BF4F45625481AB5004FDE3C /* BlurHashDecode.swift */,
+				1B9A43242549E72900CFDABC /* DocumentViewerCommon.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B9A43252549E72900CFDABC /* DocumentViewerCommon.swift in Sources */,
 				1BF4F31125474CBB004FDE3C /* BlurHashEncode.swift in Sources */,
 				C6F94D81205625970012E44D /* KeychainServices.swift in Sources */,
 				C6B937FD2027AB65006F6A8A /* Document.swift in Sources */,

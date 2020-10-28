@@ -12,6 +12,8 @@ import MobileCoreServices
 import AVFoundation
 import AVKit
 
+import QuickLook
+
 import ImageScrollView
 
 class EncryptDocumentViewController: UIViewController {
@@ -33,32 +35,23 @@ class EncryptDocumentViewController: UIViewController {
         }
         
         if data != nil {
-          if let image = UIImage(data: data!){
-            self.imageScrollView.setup()
-            self.imageScrollView.display(image: image)
-          } else {
-            let avAsset = AVURLAsset(url: self.document!.fileURL)
 
-            if(avAsset.isPlayable) {
-                let player = AVPlayer(url: self.document!.fileURL)
-                
-                let playerViewController = AVPlayerViewController()
-                playerViewController.player = player
-                playerViewController.showsPlaybackControls = false
-                
-                playerViewController.view.frame = self.view.bounds
-                playerViewController.view.isUserInteractionEnabled = false
-    
-                self.addChild(playerViewController)
+            let quickLookViewController = QLPreviewController()
 
-                self.view.addSubview(playerViewController.view)
-
-                playerViewController.didMove(toParent: self)
-                playerViewController.player!.play()
-            }
+            let instance = QLPreviewControllerSingleDataSource(fileURL: self.document!.fileURL)
             
-          }
+            quickLookViewController.dataSource = instance
+            quickLookViewController.currentPreviewItemIndex = 0
+            
+            quickLookViewController.view.bounds = self.imageScrollView.bounds
+            quickLookViewController.view.frame = self.imageScrollView.frame
+            
+            self.addChild(quickLookViewController)
+            self.view.insertSubview(quickLookViewController.view, at: 1)
+            
+            quickLookViewController.reloadData()
         }
+            
         
     }
     
