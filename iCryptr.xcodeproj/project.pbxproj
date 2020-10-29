@@ -58,7 +58,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1B9A43242549E72900CFDABC /* DocumentViewerCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewerCommon.swift; sourceTree = "<group>"; };
+		1B9A43242549E72900CFDABC /* DocumentViewerCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentViewerCommon.swift; path = ../../Common/DocumentViewerCommon.swift; sourceTree = "<group>"; };
 		1BF4F31025474CBB004FDE3C /* BlurHashEncode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlurHashEncode.swift; path = ../iCryptr/Services/BlurHashEncode.swift; sourceTree = "<group>"; };
 		1BF4F32325475BBA004FDE3C /* QuickLookThumbnailing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLookThumbnailing.framework; path = System/Library/Frameworks/QuickLookThumbnailing.framework; sourceTree = SDKROOT; };
 		1BF4F33E25475BED004FDE3C /* iCryptrThumbnail.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = iCryptrThumbnail.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,7 +127,6 @@
 				1BF4F45425481AB5004FDE3C /* ThumbnailServices.swift */,
 				1BF4F45525481AB5004FDE3C /* iCryptr-Bridging-Header.h */,
 				1BF4F45625481AB5004FDE3C /* BlurHashDecode.swift */,
-				1B9A43242549E72900CFDABC /* DocumentViewerCommon.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -159,6 +158,7 @@
 		C69EE8BD20312FD80020AC45 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				1B9A43242549E72900CFDABC /* DocumentViewerCommon.swift */,
 				C6F94D80205625970012E44D /* KeychainServices.swift */,
 			);
 			name = Services;
