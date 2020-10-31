@@ -23,6 +23,7 @@ class DecryptDocumentViewController: UIViewController {
         
         
         if(self.decryptedData == nil) {
+            self.imageScrollView.setup()
             self.resultImageScrollView.setup()
             
             if let viewWithTag = self.view.viewWithTag(100) {
@@ -34,7 +35,8 @@ class DecryptDocumentViewController: UIViewController {
             
             
             if let image = extractThumbnail(self.document!.fileURL){
-                self.resultImageScrollView.display(image: image)
+                self.imageScrollView.display(image: image)
+                self.imageScrollView.alpha = 1
                 self.unlockButton.isEnabled = true
             }
             self.decryptWithDefaultPasswordFlow()
@@ -222,6 +224,10 @@ class DecryptDocumentViewController: UIViewController {
                             quickLookViewController.reloadData()
                         }
                     }
+                    
+                    UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut){
+                        self.imageScrollView.alpha = 0
+                    }
                 } else {
                     print("Decrypt Failed")
                     
@@ -238,6 +244,7 @@ class DecryptDocumentViewController: UIViewController {
     }
     
     // MARK IBOutlets
+    @IBOutlet weak var imageScrollView: ImageScrollView!
     @IBOutlet weak var resultImageScrollView: ImageScrollView!
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var shareButton: UIBarButtonItem!

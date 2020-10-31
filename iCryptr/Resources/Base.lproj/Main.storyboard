@@ -161,6 +161,13 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="jLZ-GS-MWF"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="fzZ-KG-Fkm"/>
                             </scrollView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8vi-0b-jKl" customClass="ImageScrollView" customModule="ImageScrollView">
+                                <rect key="frame" x="0.0" y="44" width="414" height="692"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                <viewLayoutGuide key="contentLayoutGuide" id="6VV-6Z-j6K"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="ePN-Fu-pJj"/>
+                            </scrollView>
                             <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="ewS-az-25c">
                                 <rect key="frame" x="0.0" y="44" width="414" height="692"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
@@ -193,8 +200,9 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="ewS-az-25c" id="LE0-Vd-4Tt"/>
+                        <outlet property="imageScrollView" destination="8vi-0b-jKl" id="l6k-VD-UZe"/>
                         <outlet property="navigationBar" destination="Byd-46-zg7" id="uwW-a6-7yn"/>
-                        <outlet property="resultImageScrollView" destination="fbP-WZ-slN" id="Tdl-vP-ih9"/>
+                        <outlet property="resultImageScrollView" destination="fbP-WZ-slN" id="KgD-mQ-Pma"/>
                         <outlet property="shareButton" destination="Vbu-cc-mkT" id="yL7-Ww-A4J"/>
                         <outlet property="unlockButton" destination="HeI-XF-wId" id="fET-HL-reb"/>
                     </connections>
