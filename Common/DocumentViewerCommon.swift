@@ -17,7 +17,6 @@ class QLPreviewControllerSingleDataSource: QLPreviewControllerDataSource {
     }
     func numberOfPreviewItems(in: QLPreviewController) -> Int {return 1}
     func previewController(_: QLPreviewController, previewItemAt: Int) -> QLPreviewItem {
-        print(self.fileURL)
         return self.fileURL as QLPreviewItem
     }
     
