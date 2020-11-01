@@ -16,7 +16,7 @@ import QuickLook
 
 import ImageScrollView
 
-class EncryptDocumentViewController: UIViewController {
+class EncryptDocumentViewController: UIViewController, UIDocumentPickerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -152,19 +152,20 @@ class EncryptDocumentViewController: UIViewController {
                 DispatchQueue.main.async {
                     completion(true)
                     self.activityIndicator.stopAnimating()
+             
+                    let documentSaveController = UIDocumentPickerViewController(forExporting: [self.tempFileURL!], asCopy: true)
+                    documentSaveController.delegate = self
+                    documentSaveController.popoverPresentationController?.sourceView = self.view
                     
-                    let activityViewController = UIActivityViewController(activityItems: [self.tempFileURL!], applicationActivities: nil)
-                     
-                    activityViewController.popoverPresentationController?.sourceView = self.view
-                    
-                    activityViewController.completionWithItemsHandler = { activity, success, items, error in
-                        self.dismissDocumentViewController()
-                    }
-                    
-                    self.present(activityViewController, animated: true)
+                    self.present(documentSaveController, animated: true, completion: nil)
                 }
             }
         }
+    }
+    
+    func documentPicker(_: UIDocumentPickerViewController, didPickDocumentsAt: [URL]){
+        // When User Saves File
+        self.dismissDocumentViewController()
     }
     
     // MARK: IB Outlets
