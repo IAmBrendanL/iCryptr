@@ -34,8 +34,11 @@ class DecryptDocumentViewController: UIViewController {
             self.shareButton.isEnabled = false
             
             
-            if let image = extractThumbnail(self.document!.fileURL){
-                self.imageScrollView.display(image: image)
+            if let tuple = extractThumbnail(self.document!.fileURL){
+                let (image, tintColour) = tuple
+                self.view.tintColor = tintColour
+
+                self.imageScrollView.display(image: image!)
                 self.imageScrollView.alpha = 1
                 self.unlockButton.isEnabled = true
             }

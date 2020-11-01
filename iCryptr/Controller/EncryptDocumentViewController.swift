@@ -35,6 +35,12 @@ class EncryptDocumentViewController: UIViewController, UIDocumentPickerDelegate 
         }
         
         if data != nil {
+            createThumbnail(self.document!.fileURL) {thumbnailString, tintColour in
+                DispatchQueue.main.async {
+                    self.thumbnailString = thumbnailString
+                    self.view.tintColor = tintColour
+                }
+            }
 
             let quickLookViewController = QLPreviewController()
 
@@ -122,44 +128,43 @@ class EncryptDocumentViewController: UIViewController, UIDocumentPickerDelegate 
         guard let fileURL = self.document?.fileURL else { return }
 
         DispatchQueue.global(qos: .background).async {
-            createThumbnail(fileURL) {thumb in
-                let result = encryptFile(fileURL, passwd, self.document!.fileURL.lastPathComponent, thumb)
+            let result = encryptFile(fileURL, passwd, self.document!.fileURL.lastPathComponent, self.thumbnailString!)
 
-                let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
-                let temporaryDir = ProcessInfo().globallyUniqueString
+            let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+            let temporaryDir = ProcessInfo().globallyUniqueString
 
-                let tempFileDirURL = temporaryDirectoryURL.appendingPathComponent(temporaryDir)
-                self.tempFileURL = tempFileDirURL.appendingPathComponent(result!.fileName)
-                
-                do {
-                  try FileManager.default.createDirectory(at: tempFileDirURL, withIntermediateDirectories: true, attributes: nil)
-                } catch {
-                    print("temp dir cr failed")
-                    return completion(false)
-                }
-                
-                print(self.tempFileURL!)
-                
-                do {
-                    try result!.fileData.write(to: self.tempFileURL!, options: .atomic)
-                    print("Written temp file")
-                } catch {
-                    print("error")
-                    return completion(false)
-                }
-                
-                
-                DispatchQueue.main.async {
-                    completion(true)
-                    self.activityIndicator.stopAnimating()
-             
-                    let documentSaveController = UIDocumentPickerViewController(forExporting: [self.tempFileURL!], asCopy: true)
-                    documentSaveController.delegate = self
-                    documentSaveController.popoverPresentationController?.sourceView = self.view
-                    
-                    self.present(documentSaveController, animated: true, completion: nil)
-                }
+            let tempFileDirURL = temporaryDirectoryURL.appendingPathComponent(temporaryDir)
+            self.tempFileURL = tempFileDirURL.appendingPathComponent(result!.fileName)
+            
+            do {
+              try FileManager.default.createDirectory(at: tempFileDirURL, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print("temp dir cr failed")
+                return completion(false)
             }
+            
+            print(self.tempFileURL!)
+            
+            do {
+                try result!.fileData.write(to: self.tempFileURL!, options: .atomic)
+                print("Written temp file")
+            } catch {
+                print("error")
+                return completion(false)
+            }
+            
+            
+            DispatchQueue.main.async {
+                completion(true)
+                self.activityIndicator.stopAnimating()
+         
+                let documentSaveController = UIDocumentPickerViewController(forExporting: [self.tempFileURL!], asCopy: true)
+                documentSaveController.delegate = self
+                documentSaveController.popoverPresentationController?.sourceView = self.view
+                
+                self.present(documentSaveController, animated: true, completion: nil)
+            }
+            
         }
     }
     
@@ -178,6 +183,8 @@ class EncryptDocumentViewController: UIViewController, UIDocumentPickerDelegate 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var tempFileURL: URL? = nil
+    
+    var thumbnailString: String? = nil
 
     // MARK: Class Variables
     var document: UIDocument?

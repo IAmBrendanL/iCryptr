@@ -9,14 +9,14 @@ let ivEnd = saltSize + kCCBlockSizeAES128
 
 class ThumbnailProvider: QLThumbnailProvider {
     override func provideThumbnail(for request: QLFileThumbnailRequest, _ handler: @escaping (QLThumbnailReply?, Error?) -> Void) {
-        let im = extractThumbnail(request.fileURL)
-        if(im == nil) {return}
+        let (image, _) = extractThumbnail(request.fileURL) ?? (nil, nil)
+        if(image == nil) {return}
             
         let maxsz = request.maximumSize
-        let r = AVMakeRect(aspectRatio: im!.size, insideRect: CGRect(origin:.zero, size:maxsz))
+        let r = AVMakeRect(aspectRatio: image!.size, insideRect: CGRect(origin:.zero, size:maxsz))
 
         func draw() -> Bool {
-            im!.draw(in: CGRect(origin:.zero, size:r.size))
+            image!.draw(in: CGRect(origin:.zero, size:r.size))
             return true
         }
 
