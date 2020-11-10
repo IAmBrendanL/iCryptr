@@ -7,15 +7,16 @@
 //
 
 import Foundation
-import CommonCrypto
 
 let arguments = Array(CommandLine.arguments[1...])
+var stderr = StandardErrorOutputStream()
+
+if(arguments.count == 0) {print("umm where's the key?", to: &stderr); exit(1)}
 
 let key = arguments[0]
 let files = Array(arguments[1...])
-//
-//print(key)
-//print(files)
+
+if(files.count == 0) {print("can't decrypt thin air mate", to: &stderr); exit(1)}
 
 func decrypt(_ path: String){
     let url = URL(fileURLWithPath: path)
@@ -38,3 +39,10 @@ for file in files {
     decrypt(file)
 }
 
+
+
+final class StandardErrorOutputStream: TextOutputStream {
+    func write(_ string: String) {
+        FileHandle.standardError.write(Data(string.utf8))
+    }
+}
