@@ -282,7 +282,7 @@ func decryptFile(_ fileURL: URL, _ passwd: String) -> (Data, String)? {
                                      (decryptedFileName as NSString).deletingPathExtension,
                                      (decryptedFileName as NSString).pathExtension, decryptedData)
         */
-        print(String(decoding: unpackedFile.thumb, as: UTF8.self))
+//        print(String(decoding: unpackedFile.thumb, as: UTF8.self))
         return (decryptedData, decryptedFileName)
     } catch {
         return nil
